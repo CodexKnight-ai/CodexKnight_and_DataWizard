@@ -1,0 +1,20 @@
+<<<<<<< HEAD
+==== 07/07/2024 ====
+
+--> folder managemet
+
+installations : 
+
+npm i -D nodemone
+npm i -D prettier
+trying
+=======
+==== 07/07/2024 ====
+
+--> folder managemet
+
+installations : 
+
+npm i -D nodemone
+npm i -D prettier
+>>>>>>> bd33762f1cc6c1bdaae21685142639575c18891f

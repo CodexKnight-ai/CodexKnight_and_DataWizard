@@ -18,16 +18,17 @@ const createCareer = asyncHandler(async (req, res) => {
     }
 
     // Handle file upload
-    const careerImageLocalPath = req.files('careerImage').path;
+    const careerImageLocalPath = req.file.path;
     //Some bug here
-    console.log("Career image is:",careerImageLocalPath)
     if (!careerImageLocalPath) {
+        console.log("Career image is:",careerImageLocalPath)
         throw new ApiError(400, "Career Image is required");
     }
 
     // Upload image to Cloudinary
     const uploadedImage = await uploadOnCloudinary(careerImageLocalPath);
     if (!uploadedImage || !uploadedImage.url) {
+        console.log("Uploading at cloudinary")
         throw new ApiError(400, "Error uploading Career Image");
     }
 

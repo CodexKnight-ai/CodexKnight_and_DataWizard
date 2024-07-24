@@ -19,10 +19,12 @@ app.use(cookieParser())
 import userRouter from './routes/users.route.js'
 import mostWantedRouter from './routes/mostWanted.route.js'
 import careerRouter from './routes/career.route.js'
+import selfDefenseRouter from './routes/selfDefense.route.js'
 //routes declaration
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/mostWanted", mostWantedRouter)
 app.use("/api/v1/career", careerRouter)
+app.use("/api/v1/selfDefense", selfDefenseRouter)
 
 
 

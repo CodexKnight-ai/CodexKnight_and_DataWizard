@@ -37,20 +37,20 @@ function CareerPage() {
         {career.map((career, index) => (
           <div
             key={career._id}
-            className={`h-screen w-screen flex flex-col gap-1 p-10 ${index % 2 === 0 ? 'flex-row-reverse' : 'flex-row'}`}
+            className={`h-screen w-screen flex flex-col gap-1 p-10`}
           >
             <p className="font-gtaHeadingText1 text-5xl text-center p-5">
               {career.careerTitle}
             </p>
-            <div className="flex h-full w-full">
-              <div className={`flex h-full ${index % 2 === 0 ? 'w-[60%]' : 'w-[40%]'} items-center justify-center`}>
+            <div className={`flex h-full w-full ${index%2!=0 ?"flex-row-reverse":"flex-row"}`}>
+              <div className="flex h-full w-[40%] items-center justify-center">
                 <img
-                  className="h-[75%] w-auto drop-shadow-[0_15px_15px_rgba(5,67,120,255)]"
+                  className="h-full w-fit drop-shadow-[0_15px_15px_rgba(5,67,120,255)]"
                   src={career.careerImage}
                   alt={career.careerTitle}
                 />
               </div>
-              <div className={`flex h-full ${index % 2 === 0 ? 'w-[40%]' : 'w-[60%]'} flex-col items-start justify-start m-5`}>
+              <div className={`flex h-full w-[60%] flex-col items-start justify-start m-5`}>
                 <ul className="flex flex-col m-4 gap-3 text-xl text-justify">
                   <li>Description: {career.careerDescription}</li>
                   <li>Qualifications: {career.careerQualification}</li>

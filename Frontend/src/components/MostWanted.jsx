@@ -37,17 +37,21 @@ function MostWanted() {
         </div>
         <div className="h-4/5 w-full flex gap-4">
           <div className="h-full w-1/3 flex flex-col gap-3">
-            <p className="h-1/3 w-full bg-[#11304D] text-white text-center flex items-center bg-opacity-90 border-black border-2 justify-center text-xl">
-              Name: {topName}
-            </p>
-            <p className="h-1/3 w-full bg-[#11304D] text-white text-center flex items-center bg-opacity-90 border-black border-2 justify-center text-xl">
-              Age: {age}
-            </p>
-            <p className="h-1/3 w-full bg-[#11304D] text-white text-center flex items-center bg-opacity-90 border-black border-2 justify-center text-xl">
-              Crime: {crime}
-            </p>
+            <div className="h-1/3 w-full  bg-[#11304D] text-white  text-center flex bg-opacity-90 border-black border-2 ">
+              <p className="h-full w-fit font-gtaHeadingText1 text-2xl p-3 bg-[#0B3039] flex justify-center items-center">Name</p>
+              <p className="h-full w-fit bg-[#11304D] flex justify-center items-center p-3">{topName}</p>
+            </div>
+            <div className="h-1/3 w-full bg-[#11304D] text-white  text-center flex bg-opacity-90 border-black border-2 ">
+              <p className="h-full w-fit font-gtaHeadingText1 text-2xl p-3 bg-[#0B3039] flex justify-center items-center">Age</p>
+              <p className="h-full w-fit bg-[#11304D] flex justify-center items-center p-3">{age}</p>
+            </div>
+            <div className="h-1/3 w-full bg-[#11304D] text-white  text-center flex bg-opacity-90 border-black border-2 ">
+              <p className="h-full w-fit font-gtaHeadingText1 text-2xl p-3 bg-[#0B3039] flex justify-center items-center">Crime</p>
+              <p className="h-full w-fit bg-[#11304D] flex justify-center items-center p-3">{crime}</p>
+            </div>
+
           </div>
-          <div className="h-full w-1/3 flex flex-col gap-3">
+          <div className="h-full w-[40%] flex flex-col ">
             <div className="w-full h-full max-h-96 max-w-96 flex justify-center items-center bg-gray-200 border-2  border-black rounded-md overflow-hidden">
               <img
                 className="h-full w-full rounded-md shadow-black shadow-md border-black border-2 "
@@ -56,10 +60,11 @@ function MostWanted() {
               />
             </div>
           </div>
-          <div className="h-full w-1/3">
-            <p className="h-full w-full flex bg-[#11304D] text-white text-center text-xl items-center justify-center bg-opacity-90 border-black border-2">
+          <div className="h-full w-1/3 flex flex-col">
+            <p className="h-fit w-full flex bg-[#0B3039] font-gtaHeadingText1 text-3xl text-white text-center  items-center justify-center bg-opacity-90 border-black border-2">
               Details:
-              <br />
+            </p>
+            <p className="h-full w-full flex bg-[#11304D] font-gtaDescriptionText text-xl text-white p-3  items-center justify-center bg-opacity-90 border-black border-2">
               {detail}
             </p>
           </div>
@@ -70,30 +75,37 @@ function MostWanted() {
             type="text"
             placeholder="Search"
             className="w-1/3 pl-5 py-2 text-whitish bg-[#0B3039] outline-none rounded-full shadow-black shadow-sm"
-            value={searchTerm} 
+            value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)} // Update searchTerm on input change
           />
-          <span className="bg-[#0B3039] px-3 py-2 rounded-full text-white">Total results : {criminal.length}</span>
+          <span className="bg-[#0B3039] px-3 py-2 rounded-full text-white">
+            Total results : {criminal.length}
+          </span>
         </div>
 
         <div className="h-3/5 w-full flex flex-wrap gap-2 cursor-pointer overflow-y-scroll overflow-x-hidden mx-4">
           {filteredCriminals.map((criminal) => (
-            <div key={criminal._id} className="h-auto w-[24%] flex flex-col mb-2">
+            <div
+              key={criminal._id}
+              className="h-auto w-[24%] flex flex-col mb-2"
+            >
               <div className="h-40 w-full overflow-hidden">
                 <img
                   className="h-full w-full rounded-md border-2 border-black object-cover"
                   src={criminal.avatar}
-                  alt={criminal.criminalName} 
+                  alt={criminal.criminalName}
                   onClick={() => {
                     setTopName(criminal.criminalName);
                     setAge(criminal.age);
                     setCrime(criminal.crime);
                     setDetail(criminal.detail);
-                    setTopImage(criminal.avatar); 
+                    setTopImage(criminal.avatar);
                   }}
                 />
               </div>
-              <p className="flex w-full h-fit bg-white text-black text-center text-lg items-center justify-center bg-opacity-90">{criminal.criminalName}</p>
+              <p className="flex w-full h-fit bg-white text-black text-center text-lg items-center justify-center bg-opacity-90">
+                {criminal.criminalName}
+              </p>
             </div>
           ))}
         </div>

@@ -8,7 +8,9 @@ const selfDefenseLessonSchema = new Schema({
     status: Boolean,
     image: String,
     url  :String,
-    timestamps: String,
-  });
+    } ,{
+      timestamps: String,
+    }
+  );
   
 export const Lesson = mongoose.model("Lesson", selfDefenseLessonSchema);

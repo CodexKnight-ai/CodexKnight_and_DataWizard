@@ -45,7 +45,7 @@ const addLessons = async (req,res) => {
     try {
         const newLesson = await lesson.save();
         res.status(201).json(newLesson);
-        console.log("created") // Debug line to check received data
+        // console.log("created") // Debug line to check received data
     } catch (error) {
         res.status(400).json({ message: error });
     }

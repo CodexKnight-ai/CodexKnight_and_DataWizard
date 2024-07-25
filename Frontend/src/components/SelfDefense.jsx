@@ -67,10 +67,14 @@ const LessonSection = () => {
   useEffect(() => {
     axios.get('http://localhost:8001/api/v1/selfDefense/lessons')
       .then(response => {
-        console.log(response.data); // Debug line to check received data
+        // console.log(response.data);
+        // console.log("data recived") // Debug line to check received data
         setLessons(response.data)
+        if (response.data.length > 0) {
+          setSelectedLesson(response.data[0]); // Set initial lesson
+        }
       })
-      .catch(error => console.error(error));
+      .catch((err)=>{console.log(err.response)})
   }, []);
 
   const handleNextClick = () => {

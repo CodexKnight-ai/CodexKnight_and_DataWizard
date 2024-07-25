@@ -67,11 +67,10 @@ const LessonSection = () => {
   useEffect(() => {
     axios.get('http://localhost:8001/api/v1/selfDefense/lessons')
       .then(response => {
-        // console.log(response.data);
-        // console.log("data recived") // Debug line to check received data
+        // console.log("data recived",response.data) // Debug line to check received data
         setLessons(response.data)
         if (response.data.length > 0) {
-          setSelectedLesson(response.data[0]); // Set initial lesson
+          setSelectedLesson(response.data[0]);
         }
       })
       .catch((err)=>{console.log(err.response)})
@@ -86,7 +85,7 @@ const LessonSection = () => {
   return (
     <div className='w-screen h-screen flex'>
       <SideBarLesson lessons={lessons} onSelectLesson={setSelectedLesson} />
-      <LessonCard lesson={selectedLesson} onNextClick={handleNextClick} />
+      <LessonCard lesson={selectedLesson} lessonCount = {lessons.length} onNextClick={handleNextClick} />
     </div>
   );
 };
@@ -116,7 +115,7 @@ const SideBarLesson = ({ lessons, onSelectLesson }) => {
 }
 
 
-const LessonCard = ({ lesson,onNextClick }) => {
+const LessonCard = ({ lesson,onNextClick,lessonCount }) => {
 
   //Handling Blanck Space if no lesson is selected
   if (!lesson) {
@@ -125,8 +124,7 @@ const LessonCard = ({ lesson,onNextClick }) => {
 
   //progress bar calculations
   const calculateProgress = (id) => {
-      let totalLessons = Lessons.length;
-      let percentageProgress  = 100 * (id/totalLessons);;
+      let percentageProgress  = 100 * (id/lessonCount);;
       return  percentageProgress ;
   };
 
@@ -135,7 +133,7 @@ const LessonCard = ({ lesson,onNextClick }) => {
     <>
       <section className='w-[70%] h-screen p-6 flex flex-col justify-evenly'>
         <ProgressBar progress={calculateProgress(lesson.id)} />
-        <div className=''>
+        <div>
           <p className='font-gtaHeadingText1 text-[4em] text-dblue flex justify-center' >{lesson.name}</p>
           <div className='w-full h-[60vh] border-dblue border-2 mt-10 rounded-3xl overflow-hidden'>
               <iframe width="100%" height="100%"
@@ -153,6 +151,7 @@ const LessonCard = ({ lesson,onNextClick }) => {
 };
 
 const ProgressBar = ({progress}) => {
+  console.log(progress,"hello")
   return (
     <div className='relative h-[0.8em] w-full'>
           <div className='absolute bg-gray-300 w-full h-full rounded-full z-0'></div>

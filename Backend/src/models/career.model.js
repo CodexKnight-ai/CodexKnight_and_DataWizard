@@ -1,12 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const careerSchema = new Schema(
-  {
-    careerNumber: {
-      type: Number,
-      required: true,
-      unique: true,
-    },
+{
     careerTitle: {
       type: String,
       required: true,
@@ -14,6 +9,21 @@ const careerSchema = new Schema(
       index: true,
     },
     careerDescription: {
+      type: String,
+      required: true,
+      index: true,
+    },
+    careerQualification: {
+      type: String,
+      required: true,
+      index: true,
+    },
+    careerJob: {
+      type: String,
+      required: true,
+      index: true,
+    },
+    careerSalary: {
       type: String,
       required: true,
       index: true,

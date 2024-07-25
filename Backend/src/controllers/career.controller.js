@@ -1,22 +1,22 @@
-import { Career } from "../models/careers.model.js";
+import { Career } from "../models/career.model.js";
 import { ApiError } from "../utils/ApiErrors.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import asyncHandler from "../utils/asyncHandler.js";
 
 const createCareer = asyncHandler(async (req, res) => {
-    const { careerNumber, careerTitle, careerDescription } = req.body;
+    const {careerTitle,careerQualification,careerJob,careerSalary, careerDescription } = req.body;
     console.log("Career Request Body:", req.body);
 
     // Check if all required fields are present
     if (
-        [careerNumber, careerTitle, careerDescription].some(
+        [careerTitle,careerQualification,careerJob,careerSalary, careerDescription].some(
             (field) => !field || field.trim() === ""
         )
     ) {
         throw new ApiError(400, "All career fields are required");
     }
-
+    console.log(req.file)
     // Handle file upload
     const careerImageLocalPath = req.file.path;
     //Some bug here
@@ -35,9 +35,12 @@ const createCareer = asyncHandler(async (req, res) => {
     try {
         // Prepare career data
         const career = {
-            careerNumber,
             careerTitle,
+            careerQualification,
+            careerJob,
+            careerSalary,
             careerDescription,
+
             careerImage: uploadedImage.url, // Use the URL from Cloudinary
         };
 
@@ -61,7 +64,13 @@ const createCareer = asyncHandler(async (req, res) => {
         });
     }
 });
+const getCareer = asyncHandler(async (req, res) => {
+    const career = await Career.find({});
+    res.json(career);
+  });
+  
 
 export {
     createCareer,
+    getCareer,
 };

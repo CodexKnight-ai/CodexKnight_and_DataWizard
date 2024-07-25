@@ -22,7 +22,6 @@ function MostWanted() {
       });
   }, []);
 
- 
   const filteredCriminals = criminal.filter((c) =>
     c.criminalName.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -49,9 +48,9 @@ function MostWanted() {
             </p>
           </div>
           <div className="h-full w-1/3 flex flex-col gap-3">
-            <div className="w-full h-full transition-all duration-500 ease-in-out">
+            <div className="w-full h-full max-h-96 max-w-96 flex justify-center items-center bg-gray-200 border-2  border-black rounded-md overflow-hidden">
               <img
-                className="h-full w-full rounded-md shadow-black shadow-md border-black border-2 box-content"
+                className="h-full w-full rounded-md shadow-black shadow-md border-black border-2 "
                 src={topImage}
                 alt={topName} // Added alt attribute for accessibility
               />
@@ -79,18 +78,20 @@ function MostWanted() {
         <div className="h-3/5 w-full flex flex-wrap gap-2 cursor-pointer overflow-y-scroll overflow-x-hidden mx-4">
           {filteredCriminals.map((criminal) => (
             <div key={criminal._id} className="h-auto w-[24%] flex flex-col mb-2">
-              <img
-                className="h-full w-full rounded-md border-2 border-black"
-                src={criminal.avatar}
-                alt={criminal.criminalName} 
-                onClick={() => {
-                  setTopName(criminal.criminalName);
-                  setAge(criminal.age);
-                  setCrime(criminal.crime);
-                  setDetail(criminal.detail);
-                  setTopImage(criminal.avatar); 
-                }}
-              />
+              <div className="h-40 w-full overflow-hidden">
+                <img
+                  className="h-full w-full rounded-md border-2 border-black object-cover"
+                  src={criminal.avatar}
+                  alt={criminal.criminalName} 
+                  onClick={() => {
+                    setTopName(criminal.criminalName);
+                    setAge(criminal.age);
+                    setCrime(criminal.crime);
+                    setDetail(criminal.detail);
+                    setTopImage(criminal.avatar); 
+                  }}
+                />
+              </div>
               <p className="flex w-full h-fit bg-white text-black text-center text-lg items-center justify-center bg-opacity-90">{criminal.criminalName}</p>
             </div>
           ))}

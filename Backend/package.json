@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/CodexKnight-ai/LSPD_CodeXknight_X_DataWizard#readme",
   "devDependencies": {
+    "@types/node": "^20.14.12",
     "nodemon": "^3.1.4",
     "prettier": "^3.3.2"
   },

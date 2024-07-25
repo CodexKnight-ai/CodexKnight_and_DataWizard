@@ -18,7 +18,7 @@ function MostWanted() {
         setCriminal(response.data);
       })
       .catch((error) => {
-        console.error("There was an error in getting criminal!", error);
+        console.error("There was an error in getting criminal data !", error);
       });
   }, []);
 
@@ -65,7 +65,7 @@ function MostWanted() {
           </div>
         </div>
 
-        <div className="h-20 w-full flex items-center">
+        <div className="h-20 w-full flex items-center justify-between">
           <input
             type="text"
             placeholder="Search"
@@ -73,6 +73,7 @@ function MostWanted() {
             value={searchTerm} 
             onChange={(e) => setSearchTerm(e.target.value)} // Update searchTerm on input change
           />
+          <span className="bg-[#0B3039] px-3 py-2 rounded-full text-white">Total results : {criminal.length}</span>
         </div>
 
         <div className="h-3/5 w-full flex flex-wrap gap-2 cursor-pointer overflow-y-scroll overflow-x-hidden mx-4">

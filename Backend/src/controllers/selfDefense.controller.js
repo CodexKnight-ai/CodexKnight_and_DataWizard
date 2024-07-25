@@ -51,4 +51,22 @@ const addLessons = async (req,res) => {
     }
 }
 
-export {getLessons,addLessons}
+const updateLessons = async (req,res) => { 
+    try {
+        const updatedLesson = await Lesson.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.json(updatedLesson);
+    } catch (error) {
+        res.status(400).json({message : error})
+    }
+    
+}
+const deleteLessons = async (req,res) => { 
+    try {
+        await Lesson.findByIdAndDelete(req.params.id);
+        res.json({message : "Lesson deleted successdully !"})
+    } catch (error) {
+        res.status(400).json({message : error })
+    }
+}
+
+export {getLessons, addLessons, deleteLessons, updateLessons }

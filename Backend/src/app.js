@@ -27,8 +27,6 @@ import selfDefenseRouter from './routes/selfDefense.route.js'
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/mostWanted", mostWantedRouter)
 app.use("/api/v1/career", careerRouter)
-app.use("/api/v1/selfDefense",selfDefenseRouter)
-
 
 
 

@@ -18,7 +18,7 @@ import SignUp from "./components/Signup.jsx";
 import NewsSection from "./components/NewsSection.jsx";
 import MostWantedForm from "./adminComponents/MostWantedAdmin.jsx";
 import Admin from "./adminComponents/AdminPannel.jsx"
-import { SelfDefenseAdmin } from "./adminComponents/SelfDefense.admin.jsx";
+import SelfDefenseAdmin  from "./adminComponents/SelfDefense.admin.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,9 +33,10 @@ const router = createBrowserRouter(
       </Route>
       <Route path="login" element={<LoginPage />} />
       <Route path="signup" element={<SignUp />} />
-      <Route path="admin-most-wanted" element={<MostWantedForm />} />
       <Route path="admin" element={<Admin />} />
-      <Route path="admin/self-defense" element={<SelfDefenseAdmin />} />
+      <Route path="admin-most-wanted" element={<MostWantedForm />} />
+      <Route path="admin-self-defense" element={<SelfDefenseAdmin />} />
+      
     </>
   )
 );

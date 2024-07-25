@@ -12,52 +12,68 @@
 // image: String,
 // url  :String,
 
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 const SelfDefenseAdmin = () => {
+    const [lessons, setLessons] = useState([]);
+    const [newLesson, setNewLesson] = useState({ name: '', description: '', duration: '', status: false, image: '', url: '' });
+
+    useEffect(() => {
+        axios.get('http://localhost:8001/api/v1/selfDefense/lessons')
+            .then(response => setLessons(response.data))
+            .catch(err => console.log(err));
+    }, []);
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setNewLesson({ ...newLesson, [name]: value });
+    };
+
+    const handleCreateLesson = () => {
+        axios.post('http://localhost:8001/api/v1/selfDefense/lessons', newLesson)
+            .then(response => setLessons([...lessons, response.data]))
+            .catch(err => console.log(err));
+    };
+
+    const handleUpdateLesson = (id, updatedLesson) => {
+        axios.put(`http://localhost:8001/api/v1/selfDefense/lessons/${id}`, updatedLesson)
+            .then(response => {
+                setLessons(lessons.map(lesson => lesson._id === id ? response.data : lesson));
+            })
+            .catch(err => console.log(err));
+    };
+
+    const handleDeleteLesson = (id) => {
+        axios.delete(`http://localhost:8001/api/v1/selfDefense/lessons/${id}`)
+            .then(() => {
+                setLessons(lessons.filter(lesson => lesson._id !== id));
+            })
+            .catch(err => console.log(err));
+    };
+
     return (
-        <>
-            <section>
-                <form action="">
-                    <label for="LessonId">Id:</label>
-                    <input type="text" name="LessonId" required></input>
+        <div>
+            <h1>Admin Portal</h1>
+            <div>
+                <input type="text" name="name" placeholder="Name" onChange={handleInputChange} />
+                <input type="text" name="description" placeholder="Description" onChange={handleInputChange} />
+                <input type="text" name="duration" placeholder="Duration" onChange={handleInputChange} />
+                <input type="text" name="image" placeholder="Image URL" onChange={handleInputChange} />
+                <input type="text" name="url" placeholder="Video URL" onChange={handleInputChange} />
+                <button onClick={handleCreateLesson}>Create Lesson</button>
+            </div>
+            <div>
+                {lessons.map(lesson => (
+                    <div key={lesson._id}>
+                        <input type="text" value={lesson.name} onChange={(e) => handleUpdateLesson(lesson._id, { ...lesson, name: e.target.value })} />
+                        <input type="text" value={lesson.description} onChange={(e) => handleUpdateLesson(lesson._id, { ...lesson, description: e.target.value })} />
+                        <button onClick={() => handleDeleteLesson(lesson._id)}>Delete</button>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
 
-                    <label for="LessonName">Name:</label>
-                    <input type="text" name="LessonName" required></input>
-
-                    <label for="LessonDescritpion">Descritpion:</label>
-                    <input type="text" name="LessonDescritpion" required></input>
-
-                    <label for="LessonDuration">Duration:</label>
-                    <input type="text" name="LessonDuration" required></input>
-
-                    <label for="LessonStatus">Status:</label>
-                    <input type="text" name="LessonStatus" required></input>
-
-                    <label for="LessonImage">Image:</label>
-                    <input type="text" name="LessonImage"               ></input>
-
-                    <label for="LessonUrl">URL:</label>
-                    <input type="text" name="LessonUrl" required></input>
-
-                </form>
-                <table id="Lesson-data-table" className="w-screen mt-6">
-                    <thead>
-                        <tr className="flex justify-evenly bg-dblue border-2 text-whitish">
-                            <th className="w-full flex border-yellow-100 border-solid border-2">Name</th>
-                            <th className="w-full flex border-yellow-100 border-solid border-2">Email</th>
-                            <th className="w-full flex border-yellow-100 border-solid border-2">Enrollment number</th>
-                            <th className="w-full flex border-yellow-100 border-solid border-2">Contact Number</th>
-                            <th className="w-full flex border-yellow-100 border-solid border-2">Join Year</th>
-                            <th className="w-full flex border-yellow-100 border-solid border-2">programme</th>
-                            <th className="w-full flex border-yellow-100 border-solid border-2">Department</th>
-                            <th className="w-full flex border-yellow-100 border-solid border-2">Position</th>
-                            <th className="w-full flex border-yellow-100 border-solid border-2">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </section>
-        </>
-    )
-}
-
-export { SelfDefenseAdmin }
+export default SelfDefenseAdmin;

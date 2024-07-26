@@ -20,7 +20,7 @@ const SelfDefenseAdmin = () => {
     const [newLesson, setNewLesson] = useState({ name: '', description: '', duration: '', status: false, image: '', url: '' });
 
     useEffect(() => {
-        axios.get('http://localhost:8001/api/v1/selfDefense/lessons')
+        axios.get('http://localhost:4000/api/v1/selfDefense/lessons')
             .then(response => setLessons(response.data))
             .catch(err => console.log(err));
     }, []);
@@ -31,13 +31,13 @@ const SelfDefenseAdmin = () => {
     };
 
     const handleCreateLesson = () => {
-        axios.post('http://localhost:8001/api/v1/selfDefense/lessons', newLesson)
+        axios.post('http://localhost:4000/api/v1/selfDefense/lessons', newLesson)
             .then(response => setLessons([...lessons, response.data]))
             .catch(err => console.log(err));
     };
 
     const handleUpdateLesson = (id, updatedLesson) => {
-        axios.put(`http://localhost:8001/api/v1/selfDefense/lessons/${id}`, updatedLesson)
+        axios.put(`http://localhost:4000/api/v1/selfDefense/lessons/${id}`, updatedLesson)
             .then(response => {
                 setLessons(lessons.map(lesson => lesson._id === id ? response.data : lesson));
             })
@@ -45,7 +45,7 @@ const SelfDefenseAdmin = () => {
     };
 
     const handleDeleteLesson = (id) => {
-        axios.delete(`http://localhost:8001/api/v1/selfDefense/lessons/${id}`)
+        axios.delete(`http://localhost:4000/api/v1/selfDefense/lessons/${id}`)
             .then(() => {
                 setLessons(lessons.filter(lesson => lesson._id !== id));
             })

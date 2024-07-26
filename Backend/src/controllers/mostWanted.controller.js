@@ -66,21 +66,10 @@ const getCriminals = asyncHandler(async (req, res) => {
   res.json(criminals);
 });
 
- 
-const getCriminalById = asyncHandler(async (req, res) => {
-  const criminal = await Criminal.findById(req.params.id);
-
-  if (criminal) {
-    res.json(criminal);
-  } else {
-    res.status(404);
-    throw new Error('Criminal not found');
-  }
-});
 
 
 const updateCriminal = asyncHandler(async (req, res) => {
-  const { criminalName, age, crime, detail, avatar } = req.body;
+  const { criminalName, age, crime, detail } = req.body;
 
   const criminal = await Criminal.findById(req.params.id);
 
@@ -99,13 +88,12 @@ const updateCriminal = asyncHandler(async (req, res) => {
 });
 
 const updateCriminalAvatar = asyncHandler(async(req, res) => {
-  const avatarLocalPath = req.file?.path
+  const avatarLocalPath = req.file.path
 
   if (!avatarLocalPath) {
       throw new ApiError(400, "Avatar file is missing")
   }
 
-  //TODO: delete old image - assignment
 
   const avatar = await uploadOnCloudinary(avatarLocalPath)
 
@@ -135,7 +123,7 @@ const deleteCriminal = asyncHandler(async (req, res) => {
   const criminal = await Criminal.findById(req.params.id);
 
   if (criminal) {
-    await criminal.remove();
+    await Criminal.findByIdAndDelete(req.params.id);
     res.json({ message: 'Criminal removed' });
   } else {
     res.status(404);
@@ -143,10 +131,10 @@ const deleteCriminal = asyncHandler(async (req, res) => {
   }
 });
 
+
 export {
   createCriminal,
   getCriminals,
-  getCriminalById,
   updateCriminal,
   updateCriminalAvatar,
   deleteCriminal,

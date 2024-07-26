@@ -3,7 +3,6 @@ import { upload } from '../middlewares/multer.middleware.js';
 import {
   createCriminal,
   getCriminals,
-  getCriminalById,
   updateCriminal,
   deleteCriminal,
   updateCriminalAvatar,
@@ -15,8 +14,7 @@ router.route('/most-wanted-criminal')
   .post(upload.single('avatar'), createCriminal)
   .get(getCriminals);
 
-router.route('/:id')
-  .get(getCriminalById)
+router.route('/most-wanted-criminal/:id')
   .put(updateCriminal)
   .put(upload.single('avatar'), updateCriminalAvatar)
   .delete(deleteCriminal);

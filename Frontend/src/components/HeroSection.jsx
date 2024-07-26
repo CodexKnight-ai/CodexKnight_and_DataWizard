@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 // Import the FontAwesomeIcon component
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import NavBar from './NavBar.jsx'
 import { faInstagram,faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 
 const HeroSection = () => {
@@ -18,10 +19,11 @@ const HeroSection = () => {
           className="absolute w-screen h-screen z-30"
         ></img>
         <div className="absolute top-0 left-0 z-40">
+          <NavBar/>
           {/* NavSection */}
-          <nav className="w-screen h-[8.5vh] flex justify-start items-center">
+          {/* <nav className="w-screen h-[8.5vh] flex justify-start items-center">
             <div className=" w-[12%] flex-col items-center pl-[7px] pt-[50px]">
-              <div className="">
+              {/* <div className="">
                 <p className="leading-[40px] mt-[30px]">
                   <span className="pt-[25px] text-[5vw] font-gtaHeadingText2 font-semibold text-whitish">
                     LSPD
@@ -31,7 +33,7 @@ const HeroSection = () => {
                     Police Agency
                   </span>
                 </p>
-              </div>
+              </div> 
             </div>
             <ul className="font-gtaDescriptionText text-whitish w-[65%] h-[100%] top-[5px] flex flex-row justify-center items-center gap-[5vw] text-[1em]">
               <NavLink
@@ -62,7 +64,7 @@ const HeroSection = () => {
                 <li>News</li>
               </NavLink>
             </ul>
-          </nav>
+          </nav> */}
           <div className="flex h-[55vh]">
             <div className="w-[12vw] h-[100%] flex justify-between items-center ">
               <ul className="flex flex-col gap-[50px] justify-end items-center space-y-4 p-4 text-whitish font-gtaDescriptionText h-[100%]">

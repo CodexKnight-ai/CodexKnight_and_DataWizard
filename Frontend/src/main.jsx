@@ -6,6 +6,7 @@ import {
   createRoutesFromElements,
   Route,
   RouterProvider,
+
 } from "react-router-dom";
 import Layout from "./components/Layout";
 import HeroSection from "./components/HeroSection.jsx";
@@ -36,7 +37,6 @@ const router = createBrowserRouter(
       <Route path="admin" element={<Admin />} />
       <Route path="admin-most-wanted" element={<MostWantedForm />} />
       <Route path="admin-self-defense" element={<SelfDefenseAdmin />} />
-      
     </>
   )
 );

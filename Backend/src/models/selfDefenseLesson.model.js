@@ -1,16 +1,37 @@
 import mongoose, { Schema } from "mongoose";
 
-const selfDefenseLessonSchema = new Schema({
-    id: Number,
-    name: String,
-    description: String,
-    duration: String,
-    status: Boolean,
-    image: String,
-    url  :String,
-    } ,{
-      timestamps: String,
-    }
-  );
+const selfDefenseLessonSchema = new mongoose.Schema({
+    LessonId: {
+       type: String, 
+       required: true 
+    },
+    LessonName: {
+       type: String, 
+       required: true 
+    },
+    LessonDescription: {
+       type: String, 
+       required: true 
+    },
+    LessonDuration: { 
+       type: String, 
+       required: true
+    },
+    LessonStatus: {
+       type: Boolean, 
+       required: true 
+    },
+    LessonImage: {
+       type: String, 
+       required: false 
+    },
+    LessonURL: {
+       type: String, 
+       required: true 
+    },
+}, 
+{ 
+  timestamps: true 
+});
   
 export const Lesson = mongoose.model("Lesson", selfDefenseLessonSchema);

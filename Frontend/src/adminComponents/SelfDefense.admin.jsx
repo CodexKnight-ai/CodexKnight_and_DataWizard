@@ -9,11 +9,10 @@
 // description: String,
 // duration: String,
 // status: Boolean,
-// image: String,
 // url  :String,
 
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button, Form, Table } from 'semantic-ui-react'
 
@@ -35,8 +34,6 @@ const CreateLesson = () => {
     const [LessonName, setLessonName] = useState('')
     const [LessonDescription, setLessonDescription] = useState('')
     const [LessonDuration, setLessonDuration] = useState('')
-    const [LessonStatus, setLessonStatus] = useState(false)
-    const [LessonImage, setLessonImage] = useState('')
     const [LessonURL, setLessonURL] = useState('')
 
     
@@ -52,8 +49,6 @@ const CreateLesson = () => {
             LessonName,
             LessonDescription,
             LessonDuration,
-            LessonStatus,
-            LessonImage,
             LessonURL
         })
             .then(response => console.log('Lesson added:', response))
@@ -81,14 +76,6 @@ const CreateLesson = () => {
                     <input onChange={(e) => setLessonDuration(e.target.value)} className='border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.05] transition ease-in-out duration-300 focus:shadow-gray-500 focus:shadow-2xl' placeholder='Duration' />
                 </Form.Field>
                 <Form.Field className='flex justify-between w-full items-center gap-[20px]'>
-                    <label className='text-dblue font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Status</span><span>:</span></label>
-                    <input onChange={(e) => setLessonStatus(e.target.value)} className='border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.05] transition ease-in-out duration-300 focus:shadow-gray-500 focus:shadow-2xl' placeholder='Status' />
-                </Form.Field>
-                <Form.Field className='flex justify-between w-full items-center gap-[20px]'>
-                    <label className='text-dblue font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Image</span><span>:</span></label>
-                    <input onChange={(e) => setLessonImage(e.target.value)} className='border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.05] transition ease-in-out duration-300 focus:shadow-gray-500 focus:shadow-2xl' placeholder='Image' />
-                </Form.Field>
-                <Form.Field className='flex justify-between w-full items-center gap-[20px]'>
                     <label className='text-dblue font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>URL</span><span>:</span></label>
                     <input onChange={(e) => setLessonURL(e.target.value)} className='border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.05] transition ease-in-out duration-300 focus:shadow-gray-500 focus:shadow-2xl' placeholder='URL' />
                 </Form.Field>
@@ -100,25 +87,45 @@ const CreateLesson = () => {
 }
 
 const ReadLessons = () => {
+    
+    const [LessonData,setLessonData] = useState([])
 
+    useEffect(() => {
+        axios.get('http://localhost:8001/api/v1/selfDefense/lessons')
+        .then((response)=>{
+                setLessonData(response.data)
+        })
+    },[])
     return (
         <>
-            <div>
-                <Table singleLine>
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell>Id</Table.HeaderCell>
-                            <Table.HeaderCell>Name</Table.HeaderCell>
-                            <Table.HeaderCell>Description</Table.HeaderCell>
-                            <Table.HeaderCell>Duration</Table.HeaderCell>
-                            <Table.HeaderCell>Status</Table.HeaderCell>
-                            <Table.HeaderCell>Image</Table.HeaderCell>
-                            <Table.HeaderCell>URL</Table.HeaderCell>
+            <div className='w-screen h-screen'>
+                <Table singleLine className='w-full h-full  flex flex-col'>
+                    <Table.Header className='bg-dblue text-whitish'>
+                        <Table.Row className='w-full h-[5em] flex '>
+                            <Table.HeaderCell  className='w-[5%] h-full border-x-[1px] border-x-solid border-x-whitish'><span className='w-full h-full flex justify-center items-center '>Id</span></Table.HeaderCell>
+                            <Table.HeaderCell  className='w-[10%] h-full border-x-[1px] border-x-solid border-x-whitish'><span className='w-full h-full flex justify-center items-center '>Name</span></Table.HeaderCell>
+                            <Table.HeaderCell  className='w-[20%] overflow-y-scroll h-full border-x-[1px] border-x-solid border-x-whitish'><span className='w-full h-full flex justify-center items-center '>Description</span></Table.HeaderCell>
+                            <Table.HeaderCell  className='w-[5%] h-full border-x-[1px] border-x-solid border-x-whitish'><span className='w-full h-full flex justify-center items-center '>Duration</span></Table.HeaderCell>
+                            <Table.HeaderCell  className='w-[35%] h-full border-x-[1px] border-x-solid border-x-whitish overflow-scroll'><span className='w-full h-full flex justify-center items-center'>URL</span></Table.HeaderCell>
+                            <Table.HeaderCell  className='w-[13%] h-full border-x-[1px] border-x-solid border-x-whitish'><span className='w-full h-full flex justify-center items-center '>Update</span></Table.HeaderCell>
+                            <Table.HeaderCell  className='w-[13%] h-full border-x-[1px] border-x-solid border-x-whitish'><span className='w-full h-full flex justify-center items-center '>Delete</span></Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
 
-                    <Table.Body>
-                        
+                    <Table.Body className='w-screen h-[80%]'>
+                        {LessonData.map((data)=>{
+                            return(
+                                <Table.Row className='w-full h-[6em] flex'>
+                                    <Table.Cell className='w-[5%] h-full border-[1px] border-solid border-dblue'><span className='w-full h-full flex justify-center items-center '>{data.LessonId}</span></Table.Cell>
+                                    <Table.Cell className='w-[10%] h-full border-[1px]  border-solid border-dblue'><span className='w-full h-full flex justify-center items-center '>{data.LessonName}</span></Table.Cell>
+                                    <Table.Cell className='w-[20%] overflow-y-scroll h-full border-[1px]  border-solid border-dblue'><span className='w-full h-full flex justify-center items-center' >{data.LessonDescription}</span></Table.Cell>
+                                    <Table.Cell className='w-[5%] h-full border-[1px]  border-solid border-dblue'><span className='w-full h-full flex justify-center items-center'>{data.LessonDuration}</span></Table.Cell>
+                                    <Table.Cell className='w-[35%] h-full border-[1px]  border-solid border-dblue overflow-scroll'><span className='w-full h-full flex justify-center items-center '>{data.LessonURL}</span></Table.Cell>
+                                    <Table.Cell  className='w-[13%] h-full border-[1px] border-solid border-dblue'><span className='w-full h-full flex justify-center items-center '><button onClick={()=>{}} className='px-8 py-3 bg-dblue text-white border-[1px] border-solid rounded-lg active:scale-95 hover:opacity-60 transition-all duration-[0.1s] '>Update</button></span></Table.Cell>
+                                    <Table.Cell  className='w-[13%] h-full border-[1px] border-solid border-dblue'><span className='w-full h-full flex justify-center items-center '><button className='px-6 py-3 bg-dblue text-white border-[1px] border-solid rounded-lg active:scale-95 hover:opacity-60 transition-all duration-[0.1s] '>Delete</button></span></Table.Cell>
+                                </Table.Row>
+                            )
+                        })}
                     </Table.Body>
                 </Table>
             </div>
@@ -126,5 +133,8 @@ const ReadLessons = () => {
     )
 }
 
+const UpdateLessons = () => {
+
+}
 
 export default SelfDefenseAdmin;

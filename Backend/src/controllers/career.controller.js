@@ -3,6 +3,7 @@ import { ApiError } from "../utils/ApiErrors.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import asyncHandler from "../utils/asyncHandler.js";
+import e from "express";
 
 const createCareer = asyncHandler(async (req, res) => {
     const {careerTitle,careerQualification,careerJob,careerSalary, careerDescription } = req.body;
@@ -68,9 +69,21 @@ const getCareer = asyncHandler(async (req, res) => {
     const career = await Career.find({});
     res.json(career);
   });
+
+const deleteCareer = asyncHandler(async(req,res)=>{
+    const career= await Career.findById(req.params.id);
+    if(career){
+        await Career.findByIdAndDelete(req.params.id);
+        new ApiResponse(200, career,"Career choice removed")
+    }
+    else{
+        throw new ApiError(404,"career choice not found")
+    }
+})
   
 
 export {
     createCareer,
     getCareer,
+    deleteCareer,
 };

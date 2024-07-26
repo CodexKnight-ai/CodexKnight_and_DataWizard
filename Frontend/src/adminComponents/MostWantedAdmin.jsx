@@ -152,23 +152,39 @@ const MostWantedForm = () => {
             onChange={(e) => setImage(e.target.files[0])}
           />
         </div>
-        <button type="submit" className="bg-blue-500 text-white p-2">
+        <button type="submit" className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-700">
           {editId ? "Update" : "Submit"}
         </button>
       </form>
       <div>
+        <table className="border-collapse border-2 border-black">
+          <thead>
+            <tr className="border-collapse border-2 border-black">
+              <th>Sr. no</th>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Crime</th>
+              <th>Detail</th>
+              <th>Criminal Image</th>
+              <th>Edit button</th>
+              <th>Delete button</th>
+            </tr>
+          </thead>
+          <tbody>
         {criminal.map((criminal, index) => (
-          <div key={criminal._id} className="border-t mt-4 pt-4 flex justify-between items-center">
-            <div className="h-14 w-fit flex justify-center items-center">{index + 1}</div>
-            <div className="h-14 w-fit flex justify-center items-center">{criminal.criminalName}</div>
-            <div className="h-14 w-fit flex justify-center items-center">{criminal.age}</div>
-            <div className="h-14 w-fit flex justify-center items-center">{criminal.crime}</div>
-            <div className="h-14 w-fit flex justify-center items-center">{criminal.detail}</div>
-            <div className="h-14 w-16 flex justify-center items-center"><img src={criminal.avatar} alt="criminal" /></div>
-            <button onClick={() => handleEdit(criminal)}>Edit</button>
-            <button onClick={() => handleDeleteCriminal(criminal._id)}>Delete</button>
-          </div>
+          <tr key={criminal._id} className="border-collapse border-2 border-black w-full text-center">
+            <td className="w-[5%] h-3 border-collapse border-2 border-black">{index+1}</td>
+            <td className="w-[15%] h-3 border-collapse border-2 border-black">{criminal.criminalName}</td>
+            <td className="w-[5%] h-3 border-collapse border-2 border-black">{criminal.age}</td>
+            <td className="w-[20%] h-3 border-collapse border-2 border-black">{criminal.crime}</td>
+            <td className="w-[35%] h-3 border-collapse border-2 border-black">{criminal.detail}</td>
+            <td className="w-fit h-3 border-collapse border-2 border-black "><img className="w-16 h-auto" src={criminal.avatar}/></td>
+            <td><button onClick={() => handleEdit(criminal)} className="px-3  border-collapse border-2 border-black py-2 bg-dblue rounded-full text-white">Edit</button></td>
+            <td><button onClick={() => handleDeleteCriminal(criminal._id)} className="px-3 py-2  border-collapse border-2 border-black rounded-full bg-dblue text-white">Delete</button></td>
+          </tr> 
         ))}
+        </tbody>
+        </table>
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import {
   createRoutesFromElements,
   Route,
   RouterProvider,
+
 } from "react-router-dom";
 import Layout from "./components/Layout";
 import HeroSection from "./components/HeroSection.jsx";
@@ -19,6 +20,7 @@ import NewsSection from "./components/NewsSection.jsx";
 import MostWantedForm from "./adminComponents/MostWantedAdmin.jsx";
 import Admin from "./adminComponents/AdminPannel.jsx"
 import SelfDefenseAdmin  from "./adminComponents/SelfDefense.admin.jsx";
+import CareerAdmin from "./adminComponents/Career.admin.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -36,7 +38,7 @@ const router = createBrowserRouter(
       <Route path="admin" element={<Admin />} />
       <Route path="admin-most-wanted" element={<MostWantedForm />} />
       <Route path="admin-self-defense" element={<SelfDefenseAdmin />} />
-      
+      <Route path="admin-career" element={<CareerAdmin/>}/>
     </>
   )
 );

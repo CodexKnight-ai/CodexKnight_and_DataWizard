@@ -7,7 +7,7 @@ import { faInstagram,faTwitter, faYoutube } from '@fortawesome/free-brands-svg-i
 const HeroSection = () => {
   return (
     <>
-      <section className="relative w-scren h-screen bg-blackish overflow-y-hidden">
+      <section className="relative w-screen h-screen bg-black overflow-y-hidden">
         <div className="absolute flex justify-center items-center w-[100%] h-[100%]">
           <video autoPlay muted loop playsInline className="h-[80%] w-auto">
             <source src="/gtaBgVideo.mp4" type="video/mp4" />
@@ -18,7 +18,8 @@ const HeroSection = () => {
           src="/backGround.png"
           className="absolute w-screen h-screen z-30"
         ></img>
-        <div className="absolute top-0 left-0 z-40">
+        <div className="relative h-screen w-screen">
+        <div className="absolute h-screen w-screen top-0 left-0 z-40">
           <NavBar/>
           {/* NavSection */}
           {/* <nav className="w-screen h-[8.5vh] flex justify-start items-center">
@@ -65,10 +66,12 @@ const HeroSection = () => {
               </NavLink>
             </ul>
           </nav> */}
-          <div className="flex h-[55vh]">
+
+          //Social Media Section
+          <div className=" absolute flex h-[55vh] top-[8vh] lg:text-[1.17vw]">
             <div className="w-[12vw] h-[100%] flex justify-between items-center ">
               <ul className="flex flex-col gap-[50px] justify-end items-center space-y-4 p-4 text-whitish font-gtaDescriptionText h-[100%]">
-                <li className="rotate-[270deg] text-[1.2em]">Social Media</li>
+                <li className="rotate-[270deg] text-[1.2em] ">Social Media</li>
                 <div className="flex flex-col gap-[8px]">
                   <li className="bg-whitish rounded-full h-[2.7em] w-[2.7em] flex items-center justify-center">
                     <FontAwesomeIcon icon={faInstagram} size="lg" className="text-blackish" />
@@ -88,7 +91,8 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <div className=" font-gtaDescriptionText mt-[55px] w-[60vh] h-[28vh] text-whitish flex  flex-col justify-between items-start ml-[20vh] pl-[20px] pt-[10px]">
+          //Ready To Join Button
+          <div className="absolute bottom-4 font-gtaDescriptionText mt-[55px] w-[60vh] h-[28vh] text-whitish flex  flex-col justify-between items-start ml-[20vh] lg:w-[45vh] lg:text-[0.9vw] lg:ml-[20vh]">
             <p className="h-[75%]">
               <span className="font-thin text-[1.8em] opacity-[65%]">
                 Ready to join the
@@ -106,7 +110,7 @@ const HeroSection = () => {
               </span>
             </p>
             <div className="w-[100%] h-[25%]">
-              <div className="text-blackish flex justify-between gap-[20px] w-[100%] h-[100%]">
+              <div className="text-blackish flex justify-between gap-[20px] w-[100%] h-[100%] lg:justify-normal">
                 <NavLink
                   className="bg-blackish text-whitish border-[1px] border-whitish rounded-full w-[25%]"
                   to="/login">
@@ -116,17 +120,19 @@ const HeroSection = () => {
                   Community
                 </button>
                 <NavLink 
-                  className="bg-blackish text-whitish border-[1px] border-whitish rounded-full w-[45%]"
+                  className="bg-blackish text-whitish border-[1px] border-whitish rounded-full w-[45%] lg:hidden"
                   to="/newsSection">
                   <button className="h-full w-full">News & Updates</button>
                 </NavLink>
               </div>
             </div>
           </div>
-          <div className="absolute right-0 bottom-0 h-[28vh] mr-[4vw]">
+
+          //About text
+          <div className="absolute right-0 bottom-2 h-[28vh] mr-[4vw] lg:h-[32vh] ">
             <div className="flex h-[100%] mt-[15px]">
-              <span className="h-[100%] flex items-end font-gtaDescriptionText text-[11px] text-whitish">
-                <div className="h-[30%]">
+              <span className="h-[100%] flex items-end font-gtaDescriptionText text-[11px] text-whitish lg:text-[0.8vw]">
+                <div className="h-[30%] ">
                   Welcome to the Los Santos Police Department's official
                   website, dedicated to serving and protecting
                   <br />
@@ -139,16 +145,20 @@ const HeroSection = () => {
               </span>
               <span className=" p-[0px] ml-[20px]">
                 <div className="relative flex justify-center items-center">
-                      <img src="/logo3.png" alt="" className="h-[275px] top-5"/>
+                      <img src="/logo3.png" alt="" className="h-[275px] top-5 lg:h-[170px] lg:top-1"/>
                 </div>
               </span>
             </div>
           </div>
-          <div className="absolute top-14 right-40 w-[10em] animate-[spin_4.5s_linear_infinite]">
+
+          //animated logo
+          <div className="absolute top-16 right-40 w-[10em] animate-[spin_4.5s_linear_infinite] lg:right-[8.4vw] lg:w-[7em]">
             <img src="/SecurityLogo.png"></img>
           </div>
         </div>
-      </section>
+    
+        </div>
+          </section>
     </>
   );
 };

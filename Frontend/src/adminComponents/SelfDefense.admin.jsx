@@ -47,7 +47,7 @@ const CreateLesson = () => {
         event.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:8001/api/v1/selfDefense/lessons', {
+            const response = await axios.post('http://localhost:4000/api/v1/selfDefense/lessons', {
                 LessonId,
                 LessonName,
                 LessonDescription,
@@ -122,7 +122,7 @@ const ReadLessons = () => {
     const [LessonData, setLessonData] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:8001/api/v1/selfDefense/lessons')
+        axios.get('http://localhost:4000/api/v1/selfDefense/lessons')
             .then((response) => {
                 setLessonData(response.data)
             })
@@ -166,7 +166,7 @@ const ReadLessons = () => {
 
 const deleteLesson = (id) => {
     //delelting lesson by its id => data._id
-    axios.delete(`http://localhost:8001/api/v1/selfDefense/lessons/${id}`)
+    axios.delete(`http://localhost:4000/api/v1/selfDefense/lessons/${id}`)
 }
 
 const updateLesson = (id) => {

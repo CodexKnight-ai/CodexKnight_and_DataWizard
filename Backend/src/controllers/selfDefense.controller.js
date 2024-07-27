@@ -15,7 +15,7 @@ const addLessons = async (req, res) => {
     const lesson = new Lesson(req.body);
     try {
         const newLesson = await lesson.save();
-        res.status(201).json(newLesson); // Return the created lesson
+        res.status(201).json(newLesson); 
     } catch (error) {
         res.status(400).json({ message: error.message });
     }

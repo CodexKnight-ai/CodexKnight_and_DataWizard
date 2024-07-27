@@ -60,7 +60,7 @@ const LessonSection = () => {
   const [selectedLesson, setSelectedLesson] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/api/v1/selfDefense/lessons')
+    axios.get('http://localhost:8001/api/v1/selfDefense/lessons')
       .then(response => {
         setLessons(response.data);
         if (response.data.length > 0) {

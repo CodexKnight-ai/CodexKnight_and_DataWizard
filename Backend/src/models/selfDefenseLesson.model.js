@@ -17,10 +17,6 @@ const selfDefenseLessonSchema = new mongoose.Schema({
        type: String, 
        required: true
     },
-    LessonStatus: {
-       type: Boolean, 
-       required: true 
-    },
     LessonURL: {
        type: String, 
        required: true 

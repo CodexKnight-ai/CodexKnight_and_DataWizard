@@ -60,14 +60,18 @@ const LessonSection = () => {
   const [selectedLesson, setSelectedLesson] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:8001/api/v1/selfDefense/lessons')
-      .then(response => {
+    const fetchLessons = async () => {
+      try {
+        const response = await axios.get('http://localhost:8001/api/v1/selfDefense/lessons');
         setLessons(response.data);
         if (response.data.length > 0) {
           setSelectedLesson(response.data[0]);
         }
-      })
-      .catch(err => { console.log(err.response) });
+      } catch (err) {
+        console.error(err.response); 
+      }
+    };
+    fetchLessons();
   }, []);
 
   const handleNextClick = () => {
@@ -92,7 +96,7 @@ const SideBarLesson = ({ lessons, onSelectLesson }) => {
         (
           <Lesson
             onClick={() => onSelectLesson(lesson)}
-            key={lesson._id} // Use _id or any unique field from the lesson object
+            key={lesson._id} 
             name={lesson.LessonName}
             duration={lesson.LessonDuration}
             description={lesson.LessonDescription}
@@ -106,10 +110,13 @@ const SideBarLesson = ({ lessons, onSelectLesson }) => {
 
 // Lesson Card
 const LessonCard = ({ lesson, onNextClick, lessonCount, lessons }) => {
+
+  //Handling No lesson Case
   if (!lesson) {
     return <div className="w-[70%] h-screen p-6 font-gtaHeadingText2 flex justify-center items-center text-3xl text-dblue font-semibold">Let's Learn! Please Select The Lesson!</div>;
-  }
+  } 
 
+  //Function to calculate the progess of progess bar
   const calculateProgress = (id) => {
     const index = lessons.findIndex(lesson => lesson._id === id);
     let percentageProgress = 100 * ((index + 1) / lessonCount);

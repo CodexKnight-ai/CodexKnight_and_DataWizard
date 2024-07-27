@@ -9,7 +9,7 @@ const HeroSection = () => {
     <>
       <section className="relative w-screen h-screen bg-black overflow-y-hidden">
         <div className="absolute flex justify-center items-center w-[100%] h-[100%]">
-          <video autoPlay muted loop playsInline className="h-[80%] w-auto">
+          <video autoPlay muted loop playsInline className="h-[80%] w-auto xl:object-fill xl:w-[1300px] 3xl:w-[1400px] ">
             <source src="/gtaBgVideo.mp4" type="video/mp4" />
           </video>
         </div>
@@ -70,9 +70,9 @@ const HeroSection = () => {
           //Social Media Section
           <div className=" absolute flex h-[55vh] top-[8vh] lg:text-[1.17vw]">
             <div className="w-[12vw] h-[100%] flex justify-between items-center ">
-              <ul className="flex flex-col gap-[50px] justify-end items-center space-y-4 p-4 text-whitish font-gtaDescriptionText h-[100%]">
+              <ul className="flex flex-col gap-[50px] justify-end items-center space-y-4 p-4 text-whitish font-gtaDescriptionText h-[100%] xl:gap-[60px]">
                 <li className="rotate-[270deg] text-[1.2em] ">Social Media</li>
-                <div className="flex flex-col gap-[8px]">
+                <div className="flex flex-col gap-[8px] xl:gap-[10px]">
                   <li className="bg-whitish rounded-full h-[2.7em] w-[2.7em] flex items-center justify-center">
                     <FontAwesomeIcon icon={faInstagram} size="lg" className="text-blackish" />
                   </li>
@@ -92,7 +92,7 @@ const HeroSection = () => {
           </div>
 
           //Ready To Join Button
-          <div className="absolute bottom-4 font-gtaDescriptionText mt-[55px] w-[60vh] h-[28vh] text-whitish flex  flex-col justify-between items-start ml-[20vh] lg:w-[45vh] lg:text-[0.9vw] lg:ml-[20vh]">
+          <div className="absolute bottom-4 font-gtaDescriptionText mt-[55px] w-[60vh] h-[28vh] text-whitish flex  flex-col justify-between items-start ml-[20vh] lg:w-[45vh] lg:text-[0.9vw] lg:ml-[20vh] xl:w-[45vh] xl:ml-[23vh]">
             <p className="h-[75%]">
               <span className="font-thin text-[1.8em] opacity-[65%]">
                 Ready to join the
@@ -110,7 +110,7 @@ const HeroSection = () => {
               </span>
             </p>
             <div className="w-[100%] h-[25%]">
-              <div className="text-blackish flex justify-between gap-[20px] w-[100%] h-[100%] lg:justify-normal">
+              <div className="text-blackish flex justify-between gap-[20px] w-[100%] h-[100%] lg:justify-normal ">
                 <NavLink
                   className="bg-blackish text-whitish border-[1px] border-whitish rounded-full w-[25%]"
                   to="/login">
@@ -120,7 +120,7 @@ const HeroSection = () => {
                   Community
                 </button>
                 <NavLink 
-                  className="bg-blackish text-whitish border-[1px] border-whitish rounded-full w-[45%] lg:hidden"
+                  className="bg-blackish text-whitish border-[1px] border-whitish rounded-full w-[45%] lg:hidden xl:flex"
                   to="/newsSection">
                   <button className="h-full w-full">News & Updates</button>
                 </NavLink>
@@ -145,14 +145,14 @@ const HeroSection = () => {
               </span>
               <span className=" p-[0px] ml-[20px]">
                 <div className="relative flex justify-center items-center">
-                      <img src="/logo3.png" alt="" className="h-[275px] top-5 lg:h-[170px] lg:top-1"/>
+                      <img src="/logo3.png" alt="" className="h-[275px] top-5 lg:h-[170px] lg:top-1 xl:h-[200px] xl:"/>
                 </div>
               </span>
             </div>
           </div>
 
           //animated logo
-          <div className="absolute top-16 right-40 w-[10em] animate-[spin_4.5s_linear_infinite] lg:right-[8.4vw] lg:w-[7em]">
+          <div className="absolute top-16 right-40 w-[10em] animate-[spin_4.5s_linear_infinite] lg:right-[8.4vw] lg:w-[7em] xl:w-[8em] xl:right-[9.3vw] xl:top-[9vh]">
             <img src="/SecurityLogo.png"></img>
           </div>
         </div>

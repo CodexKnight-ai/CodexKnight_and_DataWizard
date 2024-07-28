@@ -1,13 +1,14 @@
 import  {UserTip}  from "../models/userTips.model.js";
+import asyncHandler from "../utils/asyncHandler.js";
 
-const getTips = async (req, res) => {
+const getTips =asyncHandler(async(req,res)=> {
     try {
         const tips = await UserTip.find();
         res.json(tips);
     } catch (error) {
         res.status(500).json({ msg: error.message });
     }
-}
+})
 
 
 const addTips = async (req, res) => {

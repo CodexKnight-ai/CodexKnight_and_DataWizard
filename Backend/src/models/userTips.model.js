@@ -1,10 +1,10 @@
 import {mongoose,  Schema } from "mongoose";
 
-const userTipsSchema = new mongoose.Schema({
+const userTipsSchema = new Schema({
     
     tipCategory: {
        type: String, 
-       required: true 
+       required: true ,
     },
     tipDescription: {
        type: String, 
@@ -15,7 +15,7 @@ const userTipsSchema = new mongoose.Schema({
        required: true
     },
     tipAttachments: {
-      
+      type:String,
     },
 }, 
 { 

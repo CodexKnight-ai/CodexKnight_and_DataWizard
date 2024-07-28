@@ -31,28 +31,28 @@ function MostWanted() {
       className="bg-cover bg-center h-screen w-full flex flex-col items-center justify-center gap-4"
       style={{ backgroundImage: `url("/mostWantedbg.gif")` }}
     >
-      <div className="bg-[#11304D] border-[#11304D] border-4 bg-opacity-80 h-4/5 w-1/2 flex flex-col p-3">
+      <div className="bg-[#11304D] border-[#11304D] border-4 rounded-lg bg-opacity-80 h-4/5 w-1/2 flex flex-col p-3 3xl:w-[55vw] 3xl:h-4/5 2xl:w-[64vw] 2xl:h-[70vh] xl:h-[70vh] xl:w-[60vw] lg:w-[60vw] lg:h-[70vh] md:w-[90vw] md:h-[68vh]">
         <div className="w-full h-15 text-whitish text-3xl font-gtaHeadingText1 flex justify-center align-middle">
           <span>Most Wanted</span>
         </div>
         <div className="h-4/5 w-full flex gap-4">
           <div className="h-full w-1/3 flex flex-col gap-3">
-            <div className="h-1/3 w-full  bg-[#11304D] text-white  text-center flex bg-opacity-90 border-black border-2 ">
+            <div className="h-1/3 w-full  bg-[#11304D] text-white  text-center flex bg-opacity-90 border-black border-2 rounded-md">
               <p className="h-full w-fit font-gtaHeadingText1 text-2xl p-3 bg-[#0B3039] flex justify-center items-center">Name</p>
               <p className="h-full w-fit bg-[#11304D] flex justify-center items-center p-3">{topName}</p>
             </div>
-            <div className="h-1/3 w-full bg-[#11304D] text-white  text-center flex bg-opacity-90 border-black border-2 ">
+            <div className="h-1/3 w-full bg-[#11304D] text-white  text-center flex bg-opacity-90 border-black border-2 rounded-md">
               <p className="h-full w-fit font-gtaHeadingText1 text-2xl p-3 bg-[#0B3039] flex justify-center items-center">Age</p>
               <p className="h-full w-fit bg-[#11304D] flex justify-center items-center p-3">{age}</p>
             </div>
-            <div className="h-1/3 w-full bg-[#11304D] text-white  text-center flex bg-opacity-90 border-black border-2 ">
+            <div className="h-1/3 w-full bg-[#11304D] text-white  text-center flex bg-opacity-90 border-black border-2 rounded-md">
               <p className="h-full w-fit font-gtaHeadingText1 text-2xl p-3 bg-[#0B3039] flex justify-center items-center">Crime</p>
               <p className="h-full w-fit bg-[#11304D] flex justify-center items-center p-3">{crime}</p>
             </div>
 
           </div>
           <div className="h-full w-[40%] flex flex-col ">
-            <div className="w-full h-full max-h-96 max-w-96 flex justify-center items-center bg-gray-200 border-2  border-black rounded-md overflow-hidden">
+            <div className="w-full h-full max-h-96 max-w-96 flex justify-center items-center bg-gray-200 border-2  border-black overflow-hidden rounded-md">
               <img
                 className="h-full w-full rounded-md shadow-black shadow-md border-black border-2 "
                 src={topImage}
@@ -60,11 +60,11 @@ function MostWanted() {
               />
             </div>
           </div>
-          <div className="h-full w-1/3 flex flex-col">
-            <p className="h-fit w-full flex bg-[#0B3039] font-gtaHeadingText1 text-3xl text-white text-center  items-center justify-center bg-opacity-90 border-black border-2">
+          <div className="h-full w-1/3 flex flex-col rounded-md">
+            <p className="h-fit w-full flex bg-[#0B3039] font-gtaHeadingText1 text-3xl text-white text-center  items-center justify-center bg-opacity-90 border-black border-2 rounded-t-md">
               Details:
             </p>
-            <p className="h-full w-full flex bg-[#11304D] font-gtaDescriptionText text-xl text-white p-3  items-center justify-center bg-opacity-90 border-black border-2">
+            <p className="h-full w-full flex bg-[#11304D] font-gtaDescriptionText text-xl text-white p-3  items-center justify-center bg-opacity-90 border-black border-2 rounded-b-md">
               {detail}
             </p>
           </div>

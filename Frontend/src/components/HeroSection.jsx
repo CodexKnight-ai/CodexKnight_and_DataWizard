@@ -9,7 +9,7 @@ const HeroSection = () => {
     <>
       <section className="relative w-screen h-screen bg-black overflow-y-hidden">
         <div className="absolute flex justify-center items-center w-[100%] h-[100%]">
-          <video autoPlay muted loop playsInline className="h-[80%] w-auto xl:object-fill xl:w-[1300px] 3xl:w-[1400px] ">
+          <video autoPlay muted loop playsInline className="h-[80%] w-auto xl:object-fill xl:w-[1300px] 3xl:w-[1400px] 4xl:w-[1700px]">
             <source src="/gtaBgVideo.mp4" type="video/mp4" />
           </video>
         </div>

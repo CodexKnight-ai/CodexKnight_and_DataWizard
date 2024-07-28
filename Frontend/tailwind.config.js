@@ -38,6 +38,19 @@ export default {
 
         '3xl': '1600px',
         // => @media (min-width: 1700px) { ... }
+
+        '4xl' : '1800px',
+        // => @media (min-width: 1800px) { ... }
+
+        '5xl' : '2000px',
+        // => @media (min-width: 1800px) { ... }
+
+        '6xl' : '2200px',
+        // => @media (min-width: 1800px) { ... }
+
+        '7xl' : '2400px',
+        // => @media (min-width: 1800px) { ... }
+
       }
     },
     

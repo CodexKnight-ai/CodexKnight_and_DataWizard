@@ -81,7 +81,7 @@ function LostAndFound() {
   const [selectedItem, setSelectedItem] = useState(null);
   // alert("Bak**di mat kr ghode")
   const lostItems = [
-    { id: 1, name: "Item 1", description: "small nigga with one lag, no hairs, no hand, also gay and lesbian at a time", status: true ,image:"/crim1.jpeg"},
+    { id: 1, name: "Item 1", description: "Description for Item 1", status: true ,image:"/crim1.jpeg"},
     { id: 2, name: "Item 2", description: "Description for Item 2", status: false ,image:"/crim2.jpeg"},
     { id: 3, name: "Item 3", description: "Description for Item 3", status: true ,image:"/crim3.jpeg"},
     { id: 4, name: "Item 4", description: "Description for Item 4", status: false ,image:"/crim4.jpeg"},

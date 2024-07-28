@@ -2,7 +2,7 @@ import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 import dotenv from 'dotenv';
-
+import bodyParser from 'body-parser'
 dotenv.config(
     {
         path: './.env'
@@ -18,6 +18,7 @@ app.use(cors({
     credentials: true
 }))
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static("public"))
@@ -29,13 +30,14 @@ import userRouter from './routes/users.route.js'
 import mostWantedRouter from './routes/mostWanted.route.js'
 import careerRouter from './routes/career.route.js'
 import selfDefenseRouter from './routes/selfDefense.route.js'
+import userTipsRouter from './routes/userTips.route.js'
 
 //routes declaration
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/mostWanted", mostWantedRouter)
 app.use("/api/v1/career", careerRouter)
 app.use("/api/v1/selfDefense",selfDefenseRouter)
-
+app.use("/api/v1/userTips",userTipsRouter)
 
 
 export { app }

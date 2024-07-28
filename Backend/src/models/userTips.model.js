@@ -2,7 +2,7 @@ import {mongoose,  Schema } from "mongoose";
 
 const userTipsSchema = new mongoose.Schema({
     
-    tipType: {
+    tipCategory: {
        type: String, 
        required: true 
     },
@@ -10,13 +10,12 @@ const userTipsSchema = new mongoose.Schema({
        type: String, 
        required: true 
     },
-    tipLocation: { 
+    tipDate: { 
        type: String, 
        required: true
     },
     tipAttachments: {
-       type: String, 
-       required: true 
+      
     },
 }, 
 { 

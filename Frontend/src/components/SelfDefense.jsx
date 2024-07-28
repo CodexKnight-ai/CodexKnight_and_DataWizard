@@ -14,22 +14,6 @@ function SelfDefense() {
   );
 }
 
-const Lessons = [
-  // { id: 1 , name: "Lesson 1" , description : "small nigga with one lag, no hairs, no hand, also gay and lesbian at a time",duration:"0:00", status: true  ,image:"/crim1.jpeg" , url:"/gtaBgVideo.mp4"},
-  // { id: 2 , name: "Lesson 2" , description : "small nigga with one lag, no hairs, no hand, also gay and lesbian at a time",duration:"0:00",status : false ,image:"/crim2.jpeg" , url:"/gtaBgVideo.mp4"},
-  // { id: 3 , name: "Lesson 3" , description : "small nigga with one lag, no hairs, no hand, also gay and lesbian at a time",duration:"0:00", status: true  ,image:"/crim3.jpeg" , url:"/gtaBgVideo.mp4"},
-  // { id: 4 , name: "Lesson 4" , description : "small nigga with one lag, no hairs, no hand, also gay and lesbian at a time",duration:"0:00", status: false ,image:"/crim4.jpeg" , url:"/gtaBgVideo.mp4"},
-  // { id: 5 , name: "Lesson 5" , description : "small nigga with one lag, no hairs, no hand, also gay and lesbian at a time",duration:"0:00", status: true  ,image:"/crim1.jpeg" , url:"/gtaBgVideo.mp4"},
-  // { id: 6 , name: "Lesson 6" , description : "small nigga with one lag, no hairs, no hand, also gay and lesbian at a time",duration:"0:00", status: false ,image:"/crim2.jpeg" , url:"/gtaBgVideo.mp4"},
-  // { id: 7 , name: "Lesson 7" , description : "small nigga with one lag, no hairs, no hand, also gay and lesbian at a time",duration:"0:00", status: true  ,image:"/crim3.jpeg" , url:"/gtaBgVideo.mp4"},
-  // { id: 8 , name: "Lesson 8" , description : "small nigga with one lag, no hairs, no hand, also gay and lesbian at a time",duration:"0:00", status: false ,image:"/crim4.jpeg" , url:"/gtaBgVideo.mp4"},
-  // { id: 9 , name: "Lesson 9" , description : "small nigga with one lag, no hairs, no hand, also gay and lesbian at a time",duration:"0:00", status: false ,image:"/crim4.jpeg" , url:"/gtaBgVideo.mp4"},
-  // { id: 10, name: "Lesson 10", description : "small nigga with one lag, no hairs, no hand, also gay and lesbian at a time",duration:"0:00", status: false ,image:"/crim4.jpeg" , url:"/gtaBgVideo.mp4"},
-  // { id: 11, name: "Lesson 11", description : "small nigga with one lag, no hairs, no hand, also gay and lesbian at a time",duration:"0:00", status: false ,image:"/crim4.jpeg" , url:"/gtaBgVideo.mp4"},
-  // { id: 12, name: "Lesson 12", description : "small nigga with one lag, no hairs, no hand, also gay and lesbian at a time",duration:"0:00", status: false ,image:"/crim4.jpeg" , url:"/gtaBgVideo.mp4"},
-  // { id: 13, name: "Lesson 13", description : "small nigga with one lag, no hairs, no hand, also gay and lesbian at a time",duration:"0:00", status: false ,image:"/crim4.jpeg" , url:"/gtaBgVideo.mp4"},
-  // // Add more lessons as needed
-];
 
 //HeroSection Defense
 const HeroSelfDefense = () => {

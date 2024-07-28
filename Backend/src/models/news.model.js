@@ -1,10 +1,5 @@
 import mongoose,{Schema} from "mongoose";
 const newsSchema = new Schema({
-    news:{
-        type:String,
-        required:true,
-        index:true,
-    },
     newsHeading:{
         type:String,
         required:true,

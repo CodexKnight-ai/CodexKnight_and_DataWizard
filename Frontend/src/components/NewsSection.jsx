@@ -3,18 +3,21 @@ import React, { useState } from "react";
 const OpenNews = ({ onClose }) => {
   return (
     <div className="fixed inset-0 bg-opacity-50 bg-black flex justify-center items-center z-50">
-      <div className="relative bg-[#121212] w-1/2 h-1/2 text-white rounded-lg p-4">
+      <div className="relative bg-[#121212] w-[90%] h-[90%] text-white rounded-lg p-4 flex gap-3">
+        <div className="w-[40%] h-full bg-gray-600">
+          <div className="bg-green-800 w-[15%] h-[25%] relative left-[85%] top-[75%]"></div>
+        </div>
+        <div className="w-[55%] h-full bg-gray-600 flex flex-col">
+          <content className="w-full h-[25%] bg-blue-800"></content>
+          <div className="w-full h-full bg-yellow-900 "></div>
+          <div className="w-full h-[10%] bg-red-950"></div>
+        </div>
         <button
           className="absolute top-2 right-2 text-2xl text-white bg-[#c21f1f] rounded-full px-2"
           onClick={onClose}
         >
           X
         </button>
-        {/* News content goes here */}
-        <div className="p-4">
-          <h2 className="text-xl mb-4">News Title</h2>
-          <p>News content goes here...</p>
-        </div>
       </div>
     </div>
   );
@@ -84,7 +87,9 @@ const NewsGridCard1 = ({ onClick }) => {
         className="absolute inset-0 h-full w-full object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
-      <h3 className="z-10 mt-3 text-3xl font-bold text-white">Wo to mar gaya</h3>
+      <h3 className="z-10 mt-3 text-3xl font-bold text-white">
+        Wo to mar gaya
+      </h3>
       <div className="z-10 mt-2 gap-y-1 overflow-x-hidden text-sm leading-6 text-gray-300">
         Wo mar gaya kyoki kya kare use kisi ne mar dala ab isme ham kya kare
       </div>
@@ -103,7 +108,9 @@ const NewsGridCard2 = ({ onClick }) => {
         className="absolute inset-0 h-full w-full object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
-      <h3 className="z-10 mt-3 text-3xl font-bold text-white">Wo to mar gaya</h3>
+      <h3 className="z-10 mt-3 text-3xl font-bold text-white">
+        Wo to mar gaya
+      </h3>
       <div className="z-10 mt-2 gap-y-1 overflow-x-hidden text-sm leading-6 text-gray-300">
         Wo mar gaya kyoki kya kare use kisi ne mar dala ab isme ham kya kare
       </div>
@@ -123,7 +130,9 @@ const NewsGridCardCarousel = ({ onClick }) => {
           className="absolute inset-0 h-full w-full object-cover overflow-hidden"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
-        <h2 className="z-10 mt-3 text-5xl font-bold text-white">Wo to mar gaya</h2>
+        <h2 className="z-10 mt-3 text-5xl font-bold text-white">
+          Wo to mar gaya
+        </h2>
         <div className="z-10 mt-5 ml-[3px] gap-y-1 overflow-x-hidden text-md leading-6 text-gray-300">
           Wo mar gaya kyoki kya kare use kisi ne mar dala ab isme ham kya kare
         </div>
@@ -134,7 +143,10 @@ const NewsGridCardCarousel = ({ onClick }) => {
 
 const NewsSideBarCard = ({ onClick }) => {
   return (
-    <div className="w-full h-[10em] bg-white shadow-xl rounded-[1.2em] p-[10px] cursor-pointer" onClick={onClick}>
+    <div
+      className="w-full h-[10em] bg-white shadow-xl rounded-[1.2em] p-[10px] cursor-pointer"
+      onClick={onClick}
+    >
       <article className="font-gtaDescriptionText  w-full h-full relative isolate flex justify-between  rounded-[1.2em]  ">
         <div className="w-[20%] overflow-hidden">
           <img
@@ -143,7 +155,9 @@ const NewsSideBarCard = ({ onClick }) => {
           />
         </div>
         <div className="w-[70%] h-full">
-          <h2 className="mt-3 text-2xl font-bold text-blackish">Wo to mar gaya</h2>
+          <h2 className="mt-3 text-2xl font-bold text-blackish">
+            Wo to mar gaya
+          </h2>
           <div className="mt-5 ml-[3px] gap-y-1 overflow-x-hidden text-md leading-6 text-blackish">
             Wo mar gaya kyoki kya kare use kisi ne mar dala ab isme ham kya kare
           </div>
@@ -247,5 +261,3 @@ const AimationCards = () => {
 };
 
 export default NewsSection;
-
-

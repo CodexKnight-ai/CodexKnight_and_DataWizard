@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
-
 const Back = () => {
   const navigate = useNavigate();
   
@@ -16,16 +15,23 @@ const Back = () => {
 };
 
 function LoginPage() {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    if (!email || !password) {
+      setError("Please fill in all fields.");
+      return;
+    }
+
     const userData = { email, password };
 
+    setIsLoading(true);
     try {
       const response = await fetch("http://localhost:4000/api/v1/users/login", {
         method: "POST",
@@ -51,6 +57,8 @@ function LoginPage() {
     } catch (error) {
       console.error("Error:", error);
       setError("Something went wrong. Please try again later.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -79,7 +87,12 @@ function LoginPage() {
                     type="email"
                     placeholder="Email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setError(null);
+                    }}
+                    required
+                    aria-label="Email"
                   />
                 </div>
               </div>
@@ -93,7 +106,12 @@ function LoginPage() {
                     type="password"
                     placeholder="Password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      setError(null);
+                    }}
+                    required
+                    aria-label="Password"
                   />
                 </div>
               </div>
@@ -102,8 +120,9 @@ function LoginPage() {
               <button
                 type="submit"
                 className="bg-white flex justify-center items-center cursor-pointer border-b border-white text-blackish px-10 py-5 rounded-full focus:outline-none"
+                disabled={isLoading}
               >
-                Login
+                {isLoading ? "Logging in..." : "Login"}
               </button>
               <NavLink to="/signup">
                 <button className="bg-[#120658] text-whitish flex justify-center items-center cursor-pointer border-b border-black px-10 py-5 rounded-full focus:outline-none">

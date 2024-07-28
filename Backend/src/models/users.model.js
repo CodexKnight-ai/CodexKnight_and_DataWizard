@@ -18,12 +18,14 @@ const userSchema = new Schema(
       unique: true,
       lowercase: true,
       trim: true,
+      match: [/.+\@.+\..+/, 'Please fill a valid email address'],
     },
     phoneNumber: {
       type: String,
       required: true,
       trim: true,
       index: true,
+      match: [/^\d{10}$/, 'Please fill a valid phone number'],
     },
     password: {
       type: String,
@@ -39,12 +41,16 @@ const userSchema = new Schema(
 );
 
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, 10); // Encrypting password
-  next();
+  try {
+    if (!this.isModified("password")) return next();
+    this.password = await bcrypt.hash(this.password, 10); // Encrypting password
+    next();
+  } catch (err) {
+    next(err);
+  }
 });
 
-userSchema.methods.isPasswordCorrect = async function (password) {
+userSchema.methods.validatePassword = async function (password) {
   return await bcrypt.compare(password, this.password); // Checking password with the original one
 };
 

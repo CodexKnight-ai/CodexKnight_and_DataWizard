@@ -22,6 +22,7 @@ import Admin from "./adminComponents/AdminPannel.jsx"
 import SelfDefenseAdmin  from "./adminComponents/SelfDefense.admin.jsx";
 import CareerAdmin from "./adminComponents/Career.admin.jsx";
 import UserTip  from "./adminComponents/UserTip.admin.jsx";
+import LostFoundAdmin from "./adminComponents/lostFound.admin.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,12 +42,13 @@ const router = createBrowserRouter(
       <Route path="admin-self-defense" element={<SelfDefenseAdmin />} />
       <Route path="admin-career" element={<CareerAdmin/>}/>
       <Route path="admin-userTips" element={<UserTip/>}/>
+      <Route path="admin-lostfound" element={<LostFoundAdmin/>}/>
     </>
   )
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <RouterProvider router={router} />
-  // </React.StrictMode>
+  </React.StrictMode>
 );

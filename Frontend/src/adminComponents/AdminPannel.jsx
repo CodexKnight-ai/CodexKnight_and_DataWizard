@@ -21,6 +21,9 @@ const Admin =() => {
                      <button className="px-6 py-3 bg-dblue border-whitish border-solid border-2 rounded-sm text-whitish">
                          <Link to="/admin-userTips" className="text-whitish no-underline">User-Tips</Link>
                      </button>
+                     <button className="px-6 py-3 bg-dblue border-whitish border-solid border-2 rounded-sm text-whitish">
+                         <Link to="/admin-lostfound" className="text-whitish no-underline">Lost & Found</Link>
+                     </button>
                 </div>
             </section>
        </>

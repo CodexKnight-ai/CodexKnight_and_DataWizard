@@ -32,6 +32,7 @@ import careerRouter from './routes/career.route.js'
 import selfDefenseRouter from './routes/selfDefense.route.js'
 import userTipsRouter from './routes/userTips.route.js'
 import newsRouter from './routes/news.route.js'
+import lostFoundRouter from './routes/lostFound.route.js'
 
 //routes declaration
 app.use("/api/v1/users", userRouter)
@@ -40,6 +41,6 @@ app.use("/api/v1/career", careerRouter)
 app.use("/api/v1/selfDefense",selfDefenseRouter)
 app.use("/api/v1/userTips",userTipsRouter)
 app.use("/api/v1/news",newsRouter)
-
+app.use("/api/v1/lostfound",lostFoundRouter)
 
 export { app }

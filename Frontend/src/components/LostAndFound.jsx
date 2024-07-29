@@ -20,7 +20,7 @@ const LostAndFound = () => {
   ];
 
   const LostItemCard = ({ item }) => (
-    <div className="flex font-sans bg-whitish p-5 rounded-lg w-[40vw] shadow-2xl" key={item.id} >
+    <div className="flex font-sans bg-whitish p-5 my-[10px] rounded-lg w-[40vw] shadow-2xl" key={item.id} >
       <div className="flex-none w-48 relative">
         <img src={item.image} alt="" className="rounded-lg absolute inset-0 w-full h-full object-cover" loading="lazy" />
       </div>
@@ -62,7 +62,7 @@ const LostAndFound = () => {
   };
 
   return (
-    <div className="mt-[8vh] flex h-[92vh] w-screen mainPage">
+    <div className="mt-[8vh] flex h-[92vh] w-screen ">
       <div className="w-[50%] h-full bg-[url('/logo2.png')] ">
         {isItemLost ? <LostItemForm /> : <FoundItemForm />}
       </div>

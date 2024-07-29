@@ -18,7 +18,7 @@ export default {
         "redish" : "var(--redish)",
       },
       boxShadow: {
-        'inset': 'inset 2px 2px 5px  rgba(0,0,0,0.3);',
+        'inset': 'inset 3px 3px 5px  rgba(0,0,0,0.3);',
       },
       screens: {
         'sm': '640px',

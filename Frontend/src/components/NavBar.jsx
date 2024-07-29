@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 function NavBar() {
   return (
     <div className="fixed top-0 z-50 w-[100%]">
-      <nav className="w-screen h-[7vh] flex justify-between items-center bg-dblue">
+      <nav className="w-screen h-[8vh] flex justify-between items-center bg-dblue">
         <div className="w-fit h-full pl-5 text-white flex text-3xl justify-center items-center font-gtaHeadingText1">
           LSPD
         </div>

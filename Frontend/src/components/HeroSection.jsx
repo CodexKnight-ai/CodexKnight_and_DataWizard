@@ -4,7 +4,6 @@ import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import NavBar from './NavBar.jsx'
 import { faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { Form, Button, TextArea, Input, Dropdown, Checkbox, Message } from 'semantic-ui-react';
 import { useState } from "react";
 
 
@@ -132,33 +131,34 @@ const HeroPage = () => {
 
 
 const UserTipsSection = () => {
-
-  const [tipDescription , settipDescription] = useState(null);
-  const [tipDate , settipDate] = useState(null);
-  const [tipfiles, settipFiles] = useState([]);
-  const [tipCategory, settipCategory] = useState(null);
+  
+  const [tipCategory, settipCategory] = useState("");
+  const [tipDescription , settipDescription] = useState("");
+  const [tipDate , settipDate] = useState("");
+  const [tipAttachments, settipAttachments] = useState([]);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
   const handleFileChange = (e) => {
     //converting files list in to regular arrays using spread operator
-    setFiles([...e.target.files]);
+    settipAttachments(Array.from(e.target.files));
   };
 
   const handleSubmit = async (event) => {
     //Handling onSubmit form event here!
     event.preventDefault();
 
+
     try {
-        const response = await axios.post('http://localhost:4000/api/v1/userTips/tips', {
-            tipCategory,
-            tipDescription,
-            tipDate,
-            tipfiles,
-        });
-        setSuccess(true);
+      const response = await axios.post('http://localhost:4000/api/v1/userTips/tips', {
+        tipCategory,
+        tipDescription,
+        tipDate
+      });
+      setSuccess(true);
     } catch (error) {
-        console.error('Error adding Tip:', error.response?.data || error.message);
+      setError(true);
+      console.error('Error adding Tip:', error.response?.data || error.message);
     }
 
     
@@ -168,27 +168,27 @@ const UserTipsSection = () => {
     <>
       <div className='flex h-screen w-screen justify-center'>
         <div className='w-[40%] h-[80%] flex justify-center items-center backdrop-blur-md rounded-xl border-2 border-none shadow-2xl shadow-black'>
-          <Form success ={success} error={error} onSubmit={handleSubmit} className='flex flex-col px-[10px] py-[10px] w-full h-full justify-between items-between font-gtaHeadingText2'>
+          <form success ={success} error={error} onSubmit={handleSubmit} className='flex flex-col px-[10px] py-[10px] w-full h-full justify-between items-between font-gtaHeadingText2'>
             <h1 className='font-gtaHeadingText1 px-[15px] py-[5px] border-[1px] border-white border-solid rounded-lg text-whitish bg-dblue text-[3em] w-full flex justify-center items-center '>Submit Tip</h1>
-            <Form.Field className='flex justify-between w-full items-center gap-[20px]'>
+            <div className='flex justify-between w-full items-center gap-[20px]'>
               <label className='text-dblue font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Catagory</span><span>:</span></label>
-              <input value={tipCategory} onchange={(e)=>settipCategory(e.target.value)} className='border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.05] transition ease-in-out duration-300 focus:shadow-gray-500 focus:shadow-2xl' placeholder='catagory of tip' required />
-            </Form.Field>
-            <Form.Field className='flex justify-between w-full items-center gap-[20px]'>
+              <input value={tipCategory} onChange={(e)=>settipCategory(e.target.value)} className='border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.05] transition ease-in-out duration-300 focus:shadow-gray-500 focus:shadow-2xl' placeholder='catagory of tip' required />
+            </div>
+            <div className='flex justify-between w-full items-center gap-[20px]'>
               <label className='text-dblue font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Description</span><span>:</span></label>
-              <TextArea value={tipDescription} onChange={(e)=>settipDescription(e.target.value)} className='border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset  focus:bg-white focus:transform focus:scale-[1.05] transition ease-in-out duration-300 focus:shadow-gray-500 focus:shadow-2xl' placeholder='Describe your suggestion' required />
-            </Form.Field>
-            <Form.Field className='flex justify-between w-full items-center gap-[20px]'>
+              <textarea value={tipDescription} onChange={(e)=>settipDescription(e.target.value)} className='border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset  focus:bg-white focus:transform focus:scale-[1.05] transition ease-in-out duration-300 focus:shadow-gray-500 focus:shadow-2xl' placeholder='Describe your suggestion' required />
+            </div>
+            <div className='flex justify-between w-full items-center gap-[20px]'>
               <label className='text-dblue font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Date</span><span>:</span></label>
               <input value={tipDate} onChange={(e)=>settipDate(e.target.value)} type="date" className='border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.05] transition ease-in-out duration-300 focus:shadow-gray-500 focus:shadow-2xl' placeholder='Date' required />
-            </Form.Field>
-            <Form.Field className='flex justify-between w-full items-center gap-[20px]'>
+            </div>
+            <div className='flex justify-between w-full items-center gap-[20px]'>
               <label className='text-dblue font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Attachments (If any)</span><span>:</span></label>
-              <input value={tipfiles} onChange={(e)=>settipFiles(e.target.value)}  type="file" className='border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.05] transition ease-in-out duration-300 focus:shadow-gray-500 focus:shadow-2xl' placeholder=''/>
-            </Form.Field>
+              <input value={tipAttachments} onChange={(e)=>settipAttachments(e.target.value)}  type="file" className='border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.05] transition ease-in-out duration-300 focus:shadow-gray-500 focus:shadow-2xl' placeholder='' multiple/>
+            </div>
             
-            <Button type='submit' className='flex w-full bg-dblue text-white font-gtaHeadingText2 text-[1.5em] rounded-xl justify-center align-center px-6 py-3 border-[1px] border-white border-solid hover:opacity-70 transition-all duration-[0.1s] active:scale-[0.98]'>Submit</Button>
-          </Form>
+            <button type='submit' className='flex w-full bg-dblue text-white font-gtaHeadingText2 text-[1.5em] rounded-xl justify-center align-center px-6 py-3 border-[1px] border-white border-solid hover:opacity-70 transition-all duration-[0.1s] active:scale-[0.98]'>Submit</button>
+          </form>
         </div>
       </div>
     </>

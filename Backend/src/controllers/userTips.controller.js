@@ -1,17 +1,14 @@
-import  {UserTip}  from "../models/userTips.model.js";
+import { UserTip } from "../models/userTips.model.js";
 import asyncHandler from "../utils/asyncHandler.js";
 
-const getTips =asyncHandler(async(req,res)=> {
-    try {
-        const tips = await UserTip.find();
-        res.json(tips);
-    } catch (error) {
-        res.status(500).json({ msg: error.message });
-    }
-})
+// Get all tips
+const getTips = asyncHandler(async (req, res) => {
+    const tips = await UserTip.find();
+    res.json(tips);
+});
 
-
-const addTips = async (req, res) => {
+// Add a new tip
+const addTips = asyncHandler(async (req, res) => {
     const tip = new UserTip(req.body);
     try {
         const newTip = await tip.save();
@@ -19,15 +16,16 @@ const addTips = async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
-};
+});
 
-const deleteTips = async (req,res) => { 
+// Delete a tip by ID
+const deleteTips = asyncHandler(async (req, res) => {
     try {
         await UserTip.findByIdAndDelete(req.params.id);
-        res.json({message : "Tip deleted successfully !"})
+        res.json({ message: "Tip deleted successfully!" });
     } catch (error) {
-        res.status(400).json({message : error })
+        res.status(400).json({ message: error.message });
     }
-}
+});
 
-export {getTips, deleteTips, addTips }
+export { getTips, addTips, deleteTips };

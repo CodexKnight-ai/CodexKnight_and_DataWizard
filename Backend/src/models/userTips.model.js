@@ -2,20 +2,19 @@ import {mongoose,  Schema } from "mongoose";
 
 const userTipsSchema = new Schema({
     
-    tipCategory: {
+    tipCategory : {
        type: String, 
        required: true ,
     },
-    tipDescription: {
+    tipDescription : {
        type: String, 
        required: true 
     },
-    tipDate: { 
+    tipDate : { 
        type: String, 
        required: true
     },
-    tipAttachments: {
-      type:String,
+    tipAttachments : {
     },
 }, 
 { 

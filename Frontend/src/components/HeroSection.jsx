@@ -155,6 +155,11 @@ const UserTipsSection = () => {
         tipDescription,
         tipDate
       });
+
+      settipCategory("")
+      settipDescription("")
+      settipDate("")
+      settipAttachments("")
       setSuccess(true);
     } catch (error) {
       setError(true);

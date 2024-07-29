@@ -53,7 +53,12 @@ const CreateLesson = () => {
                 LessonDuration,
                 LessonURL
             });
-            console.log('Lesson added:', response.data);
+            
+            setId("")
+            setLessonName("")
+            setLessonDescription("")
+            setLessonDuration("")
+            setLessonURL("")
         } catch (error) {
             console.error('Error adding lesson:', error.response?.data || error.message);
         }

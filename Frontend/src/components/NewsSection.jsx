@@ -1,16 +1,74 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-const OpenNews = ({ onClose }) => {
+const OpenNews = ({ onClose, id }) => {
+  const [newsData, setNewsData] = useState({});
+  const [comment, setComment] = useState("");
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:4000/api/v1/news/create-news/${id}`)
+      .then((response) => {
+        console.log("News data by id fetched");
+        setNewsData(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error fetching the news data!", error);
+      });
+  }, [id]);
+
+  const handleCommentSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post(`http://localhost:4000/api/v1/news/${id}/comments`, { comment })
+      .then((response) => {
+        console.log("Comment added");
+        setComment(""); // Clear the input field
+        setNewsData((prevState) => ({
+          ...prevState,
+          newsComments: [...prevState.newsComments, response.data],
+        }));
+      })
+      .catch((error) => {
+        console.error("There was an error adding the comment!", error);
+      });
+  };
+
   return (
     <div className="fixed inset-0 bg-opacity-50 bg-black flex justify-center items-center z-50">
       <div className="relative bg-[#121212] w-[90%] h-[90%] text-white rounded-lg p-4 flex gap-3">
-        <div className="w-[40%] h-full bg-gray-600">
+        <div className="w-[40%] h-full">
+          <img className="w-full h-auto" src={newsData.newsImage} alt="News" />
           <div className="bg-green-800 w-[15%] h-[25%] relative left-[85%] top-[75%]"></div>
         </div>
-        <div className="w-[55%] h-full bg-gray-600 flex flex-col">
-          <content className="w-full h-[25%] bg-blue-800"></content>
-          <div className="w-full h-full bg-yellow-900 "></div>
-          <div className="w-full h-[10%] bg-red-950"></div>
+        <div className="w-[55%] h-full flex flex-col gap-1">
+          <div className="w-full h-[10%] bg-blue-800 border-gray-500 border-2">
+            {newsData.newsHeading}
+          </div>
+          <div className="w-full h-[25%] bg-blue-800 border-gray-500 border-2">
+            {newsData.newsDescription}
+          </div>
+          <div className="w-full h-full bg-yellow-900 border-gray-500 border-2">
+            {newsData.newsComments?.map((comment, index) => (
+              <p key={index}>{comment.text}</p>
+            ))}
+          </div>
+          <div className="w-full h-[10%] bg-red-950 border-gray-500 border-2"></div>
+          <form onSubmit={handleCommentSubmit} className="mt-4">
+            <input
+              type="text"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              className="w-full p-2 rounded"
+              placeholder="Add a comment..."
+            />
+            <button
+              type="submit"
+              className="mt-2 bg-blue-500 p-2 rounded text-white"
+            >
+              Add Comment
+            </button>
+          </form>
         </div>
         <button
           className="absolute top-2 right-2 text-2xl text-white bg-[#c21f1f] rounded-full px-2"
@@ -36,7 +94,7 @@ const NewsSection = () => {
 
   return (
     <>
-      {isOpen && <OpenNews onClose={handleCloseNews} />}
+      {isOpen && <OpenNews onClose={handleCloseNews} id={id} />}
       <section className="w-screen h-screen overflow-x-hidden">
         <div className="relative bg-blackish w-screen h-full overflow-y-hidden">
           <div className='mt-[8vh]  bg-[url("/newsSection.png")] w-full h-full bg-contain bg-center bg-no-repeat'>

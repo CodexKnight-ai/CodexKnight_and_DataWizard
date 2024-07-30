@@ -62,7 +62,7 @@ const LostAndFound = () => {
   };
 
   return (
-    <div className="mt-[8vh] flex h-[92vh] w-screen ">
+    <div className="mt-[8vh] flex h-[92vh] w-screen p">
       <div className="w-[50%] h-full bg-[url('/logo2.png')] ">
         {isItemLost ? <LostItemForm /> : <FoundItemForm />}
       </div>
@@ -91,9 +91,50 @@ const LostAndFound = () => {
   );
 
   function LostItemForm() {
+
+    const [lostItemDate, setlostItemDate] = useState([]);
+    const [userName , setItemuserName] = useState([]);
+    const [lostItemImage , setlostItemImage] = useState([]);
+    const [phoneNo , setphoneNo] = useState([]);
+    const [lostItemName , setlostItemName] = useState([]);
+    const [lostItemDiscription , setlostItemDiscription] = useState([]);
+    const [lostItemAddress , setlostItemAddress] = useState([]);
+
+    
+    const handleSubmit = async (event) => {
+      //Handling onSubmit form event here!
+      event.preventDefault();
+
+      try {
+        const response = await axios.post('http://localhost:4000/api/v1/lostfound/itemslost', {
+          userName,
+          phoneNo,
+          lostItemImage,
+          lostItemName,
+          lostItemDiscription,
+          lostItemAddress,
+          lostItemDate
+        });
+        
+        setlostItemDate("")
+        setItemuserName("")
+        setlostItemImage("")
+        setphoneNo("")
+        setlostItemName("")
+        setlostItemDiscription("")
+        setlostItemAddress("")
+
+      } catch (error) {
+        setError(true);
+        console.error('Error adding lost item:', error.response?.data || error.message);
+      }
+  
+      
+    };
+
     return (
       <div  className=' w-full h-full flex justify-center items-center backdrop-blur-md  backdrop-brightness-50 '>
-        <form className='flex flex-col px-[10px] py-[10px] w-full h-full justify-between items-between font-gtaHeadingText2'>
+        <form onSubmit={handleSubmit} className='flex flex-col px-[10px] py-[10px] w-full h-full justify-between items-between font-gtaHeadingText2'>
           <div className='font-gtaHeadingText2 px-[15px] py-[5px]  rounded-lg e text-[1em] w-full flex justify-center items-center '>
             <div className="flex items-center text-dblue border-none outline-none w-[50%] h-[4em] rounded-full bg-white shadow-inset">
               <span
@@ -124,7 +165,7 @@ const LostAndFound = () => {
           </div>
           <div className='flex justify-between w-full items-center gap-[20px]'>
             <label className='text-whitish font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Item Image</span><span>:</span></label>
-            <input type="file" className='text-dblue   border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' required />
+            <input type="file" className='text-dblue   border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl'  />
           </div>
           <div className='flex justify-between w-full items-center gap-[20px]'>
             <label className='text-whitish font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Address</span><span>:</span></label>

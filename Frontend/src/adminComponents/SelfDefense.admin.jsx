@@ -125,6 +125,13 @@ const ReadLessons = () => {
 
     const [LessonData, setLessonData] = useState([])
 
+    const deleteLesson = (id) => {
+        //delelting lesson by its id => data._id
+        axios.delete(`http://localhost:4000/api/v1/selfDefense/lessons/${id}`)
+        setLessonData(LessonData.filter((lesson) => lesson._id !== id));
+    }
+
+    
     useEffect(() => {
         axios.get('http://localhost:4000/api/v1/selfDefense/lessons')
             .then((response) => {
@@ -168,10 +175,6 @@ const ReadLessons = () => {
     )
 }
 
-const deleteLesson = (id) => {
-    //delelting lesson by its id => data._id
-    axios.delete(`http://localhost:4000/api/v1/selfDefense/lessons/${id}`)
-}
 
 const updateLesson = (id) => {
 

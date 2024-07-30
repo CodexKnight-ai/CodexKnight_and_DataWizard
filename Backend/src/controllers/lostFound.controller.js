@@ -1,13 +1,20 @@
-import { LostItem } from "../models/LostFound.model.js";
+import { LostItem, FoundItem } from "../models/LostFound.model.js";
 import asyncHandler from "../utils/asyncHandler.js";
-//Get all Items
-const getItems = asyncHandler(async (req, res) => {
+
+// Get all Lost Items
+const getLostItems = asyncHandler(async (req, res) => {
     const items = await LostItem.find();
     res.json(items);
 });
 
-// Add a new Item
-const addItems = asyncHandler(async (req, res) => {
+// Get all Found Items
+const getFoundItems = asyncHandler(async (req, res) => {
+    const items = await FoundItem.find();
+    res.json(items);
+});
+
+// Add a new Lost Item
+const addLostItem = asyncHandler(async (req, res) => {
     const item = new LostItem(req.body);
     try {
         const newItem = await item.save();
@@ -17,14 +24,68 @@ const addItems = asyncHandler(async (req, res) => {
     }
 });
 
-//Delete Items
-const deleteItems = asyncHandler(async (req, res) => {
+// Add a new Found Item
+const addFoundItem = asyncHandler(async (req, res) => {
+    const item = new FoundItem(req.body);
     try {
-        await LostItem.findByIdAndDelete(req.params.id);
+        const newItem = await item.save();
+        res.status(201).json(newItem); 
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+// Delete Lost Item
+const deleteLostItem = asyncHandler(async (req, res) => {
+    try {
+        const item = await LostItem.findByIdAndDelete(req.params.id);
+        if (!item) {
+            res.status(404).json({ message: "Item not found" });
+            return;
+        }
         res.json({ message: "Item deleted successfully!" });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 });
 
-export { getItems , deleteItems , addItems }
+// Delete Found Item
+const deleteFoundItem = asyncHandler(async (req, res) => {
+    try {
+        const item = await FoundItem.findByIdAndDelete(req.params.id);
+        if (!item) {
+            res.status(404).json({ message: "Item not found" });
+            return;
+        }
+        res.json({ message: "Item deleted successfully!" });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+// Move item from Lost to Found
+const moveItemsToFound = asyncHandler(async (req, res) => {
+    try {
+        const item = await LostItem.findById(req.params.id);
+        if (!item) return res.status(404).json({ message: 'Item not found' });
+
+        const foundItem = new FoundItem({
+            userName: item.userName,
+            phoneNo: item.phoneNo,
+            foundItemName: item.lostItemName,
+            foundItemImage: item.lostItemImage,
+            foundItemDiscription: item.lostItemDiscription,
+            foundItemAddress: item.lostItemAddress,
+            foundItemDate: new Date(),
+        });
+
+        await foundItem.save();
+        await LostItem.findByIdAndDelete(req.params.id);
+
+        res.json({ message: 'Item moved to found and deleted from lost' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+export { getLostItems, getFoundItems, addLostItem, addFoundItem, deleteLostItem, deleteFoundItem, moveItemsToFound };

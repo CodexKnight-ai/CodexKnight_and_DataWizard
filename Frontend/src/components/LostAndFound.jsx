@@ -93,13 +93,13 @@ const LostAndFound = () => {
 
   function LostItemForm() {
 
-    const [lostItemDate, setlostItemDate] = useState([]);
-    const [userName , setItemuserName] = useState([]);
-    const [lostItemImage , setlostItemImage] = useState([]);
-    const [phoneNo , setphoneNo] = useState([]);
-    const [lostItemName , setlostItemName] = useState([]);
-    const [lostItemDiscription , setlostItemDiscription] = useState([]);
-    const [lostItemAddress , setlostItemAddress] = useState([]);
+    const [lostItemDate, setlostItemDate] = useState("");
+    const [userName , setItemuserName] = useState("");
+    const [lostItemImage , setlostItemImage] = useState("");
+    const [phoneNo , setphoneNo] = useState("");
+    const [lostItemName , setlostItemName] = useState("");
+    const [lostItemDiscription , setlostItemDiscription] = useState("");
+    const [lostItemAddress , setlostItemAddress] = useState("");
 
     
     const handleSubmit = async (event) => {

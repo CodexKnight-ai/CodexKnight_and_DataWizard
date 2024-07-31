@@ -215,4 +215,4 @@ const getComments = asyncHandler(async (req, res, next) => {
 
 
 
-export { addNews, getNews, getNewsById,likeNews,unlikeNews,addComment,editComment,deleteComment,getComments };
+export { addNews, getNews, getNewsById,likeNews,unlikeNews,addComment,deleteComment,getComments };

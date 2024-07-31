@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faTimesCircle, faSearch } from '@fortawesome/free-solid-svg-icons';
+import axios from "axios";
 
 const LostAndFound = () => {
   const [detailsVisible, setDetailsVisible] = useState(false);
@@ -125,7 +126,6 @@ const LostAndFound = () => {
         setlostItemAddress("")
 
       } catch (error) {
-        setError(true);
         console.error('Error adding lost item:', error.response?.data || error.message);
       }
   

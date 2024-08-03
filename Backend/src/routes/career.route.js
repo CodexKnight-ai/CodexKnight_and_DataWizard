@@ -6,6 +6,8 @@ const router = Router();
 router.route('/create-career')
     .post(upload.single('careerImage'), createCareer)
     .get(getCareer)
+
+router.route('/careers/:id')
     .delete(deleteCareer)
 
 export default router;

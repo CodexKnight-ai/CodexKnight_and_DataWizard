@@ -93,15 +93,15 @@ const LostAndFound = () => {
 
   function LostItemForm() {
 
-    const [lostItemDate, setlostItemDate] = useState("");
-    const [userName , setItemuserName] = useState("");
-    const [lostItemImage , setlostItemImage] = useState("");
-    const [phoneNo , setphoneNo] = useState("");
-    const [lostItemName , setlostItemName] = useState("");
-    const [lostItemDiscription , setlostItemDiscription] = useState("");
-    const [lostItemAddress , setlostItemAddress] = useState("");
+    const [lostItemDate, setlostItemDate] = useState();
+    const [userName, setItemuserName] = useState();
+    const [lostItemImage, setlostItemImage] = useState();
+    const [phoneNo, setphoneNo] = useState();
+    const [lostItemName, setlostItemName] = useState();
+    const [lostItemDiscription, setlostItemDiscription] = useState();
+    const [lostItemAddress, setlostItemAddress] = useState();
 
-    
+
     const handleSubmit = async (event) => {
       //Handling onSubmit form event here!
       event.preventDefault();
@@ -116,7 +116,7 @@ const LostAndFound = () => {
           lostItemAddress,
           lostItemDate
         });
-        
+
         setlostItemDate("")
         setItemuserName("")
         setlostItemImage("")
@@ -128,12 +128,12 @@ const LostAndFound = () => {
       } catch (error) {
         console.error('Error adding lost item:', error.response?.data || error.message);
       }
-  
-      
+
+
     };
 
     return (
-      <div  className=' w-full h-full flex justify-center items-center backdrop-blur-md  backdrop-brightness-50 '>
+      <div className=' w-full h-full flex justify-center items-center backdrop-blur-md  backdrop-brightness-50 '>
         <form onSubmit={handleSubmit} className='flex flex-col px-[10px] py-[10px] w-full h-full justify-between items-between font-gtaHeadingText2'>
           <div className='font-gtaHeadingText2 px-[15px] py-[5px]  rounded-lg e text-[1em] w-full flex justify-center items-center '>
             <div className="flex items-center text-dblue border-none outline-none w-[50%] h-[4em] rounded-full bg-white shadow-inset">
@@ -153,27 +153,27 @@ const LostAndFound = () => {
           </div>
           <div className='flex justify-between w-full items-center gap-[20px]'>
             <label className='text-whitish font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Name</span><span>:</span></label>
-            <input className='text-dblue border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset  focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' placeholder='fullname' required />
+            <input onChange={(e) => setItemuserName(e.target.value)} value={userName} className='text-dblue border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset  focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' placeholder='fullname' required />
           </div>
           <div className='flex justify-between w-full items-center gap-[20px]'>
             <label className='text-whitish font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Phone No</span><span>:</span></label>
-            <input className='text-dblue border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' placeholder='phone number' required />
+            <input onChange={(e) => setphoneNo(e.target.value)} value={phoneNo} className='text-dblue border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' placeholder='phone number' required />
           </div>
           <div className='flex justify-between w-full items-center gap-[20px]'>
             <label className='text-whitish font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Item Name</span><span>:</span></label>
-            <input className='text-dblue   border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' placeholder='name of lost item' required />
+            <input onChange={(e) => setlostItemName(e.target.value)} value={lostItemName} className='text-dblue   border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' placeholder='name of lost item' required />
           </div>
           <div className='flex justify-between w-full items-center gap-[20px]'>
             <label className='text-whitish font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Item Image</span><span>:</span></label>
-            <input type="file" className='text-dblue   border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl'  />
+            <input type="file" className='text-dblue   border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' />
           </div>
           <div className='flex justify-between w-full items-center gap-[20px]'>
             <label className='text-whitish font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Address</span><span>:</span></label>
-            <input className='text-dblue   border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' placeholder='where it was lost' required />
+            <input onChange={(e) => setlostItemAddress(e.target.value)} value={lostItemAddress} className='text-dblue   border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' placeholder='where it was lost' required />
           </div>
           <div className='flex justify-between w-full items-center gap-[20px]'>
             <label className='text-whitish font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Date</span><span>:</span></label>
-            <input type="date" className='text-dblue   border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' required />
+            <input onChange={(e) => setlostItemDate(e.target.value)} value={lostItemDate} type="date" className='text-dblue   border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' required />
           </div>
           <div className='w-full flex justify-between items-center gap-[20px]'>
             <button className='py-[5px] w-full h-[3em] justify-center text-[1.5rem] items-center border-[1px] border-dblue flex bg-dblue text-whitish rounded-[20px] font-gtaHeadingText2  hover:bg-transparent hover:text-white hover:border-white transition-all ease-in-out duration-300' type="submit">
@@ -185,11 +185,48 @@ const LostAndFound = () => {
     );
   }
 
+
   function FoundItemForm() {
+    const [foundItemDate, setFoundItemDate] = useState('');
+    const [userName, setUserName] = useState('');
+    const [foundItemImage, setFoundItemImage] = useState('');
+    const [phoneNo, setPhoneNo] = useState('');
+    const [foundItemName, setFoundItemName] = useState('');
+    const [foundItemDescription, setFoundItemDescription] = useState('');
+    const [foundItemAddress, setFoundItemAddress] = useState('');
+
+      const handleSubmit = async (event) => {
+        //Handling onSubmit form event here!
+        event.preventDefault();
+  
+        try {
+          const response = await axios.post('http://localhost:4000/api/v1/lostfound/itemsfound', {
+            userName,
+            phoneNo,
+            foundItemImage,
+            foundItemName,
+            foundItemDescription,
+            foundItemAddress,
+            foundItemDate
+          });
+  
+          setFoundItemDate("")
+          setUserName("")
+          setFoundItemImage("")
+          setPhoneNo("")
+          setFoundItemName("")
+          setFoundItemDescription("")
+          setFoundItemAddress("")
+  
+        } catch (error) {
+          console.error('Error adding lost item:', error.response?.data || error.message);
+        }
+    };
+
     return (
-      <div className=' w-full h-full flex justify-center items-center backdrop-blur-md  backdrop-brightness-50 '>
-        <form className='flex flex-col px-[10px] py-[10px] w-full h-full justify-between items-between font-gtaHeadingText2'>
-          <div className='font-gtaHeadingText2 px-[15px] py-[5px]  rounded-lg e text-[1em] w-full flex justify-center items-center '>
+      <div className='w-full h-full flex justify-center items-center backdrop-blur-md backdrop-brightness-50'>
+        <form onSubmit={handleSubmit} className='flex flex-col px-[10px] py-[10px] w-full h-full justify-between items-between font-gtaHeadingText2'>
+          <div className='font-gtaHeadingText2 px-[15px] py-[5px] rounded-lg text-[1em] w-full flex justify-center items-center'>
             <div className="flex items-center text-dblue border-none outline-none w-[50%] h-[4em] rounded-full bg-white shadow-inset">
               <span
                 className={`w-[50%] flex justify-center items-center cursor-pointer px-10 py-5 rounded-full ${isItemLost ? 'text-whitish bg-dblue' : ''}`}
@@ -207,30 +244,30 @@ const LostAndFound = () => {
           </div>
           <div className='flex justify-between w-full items-center gap-[20px]'>
             <label className='text-whitish font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Name</span><span>:</span></label>
-            <input className='text-dblue border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset  focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' placeholder='fullname' required />
+            <input onChange={(e) => setUserName(e.target.value)} value={userName} className='text-dblue border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' placeholder='fullname' required />
           </div>
           <div className='flex justify-between w-full items-center gap-[20px]'>
             <label className='text-whitish font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Phone No</span><span>:</span></label>
-            <input className='text-dblue border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' placeholder='phone number' required />
+            <input onChange={(e) => setPhoneNo(e.target.value)} value={phoneNo} className='text-dblue border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' placeholder='phone number' required />
           </div>
           <div className='flex justify-between w-full items-center gap-[20px]'>
             <label className='text-whitish font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Item Name</span><span>:</span></label>
-            <input className='text-dblue   border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' placeholder='name of found item' required />
+            <input onChange={(e) => setFoundItemName(e.target.value)} value={foundItemName} className='text-dblue border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' placeholder='name of found item' required />
           </div>
           <div className='flex justify-between w-full items-center gap-[20px]'>
             <label className='text-whitish font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Item Image</span><span>:</span></label>
-            <input type="file" className='text-dblue   border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' required />
+            <input type="file" onChange={(e) => setFoundItemImage(e.target.files[0])} className='text-dblue border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl'  />
           </div>
           <div className='flex justify-between w-full items-center gap-[20px]'>
             <label className='text-whitish font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Address</span><span>:</span></label>
-            <input className='text-dblue   border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' placeholder='where it was found' required />
+            <input onChange={(e) => setFoundItemAddress(e.target.value)} value={foundItemAddress} className='text-dblue border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' placeholder='where it was found' required />
           </div>
           <div className='flex justify-between w-full items-center gap-[20px]'>
             <label className='text-whitish font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Date</span><span>:</span></label>
-            <input type="date" className='text-dblue   border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' required />
+            <input onChange={(e) => setFoundItemDate(e.target.value)} value={foundItemDate} type="date" className='text-dblue border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl' required />
           </div>
           <div className='w-full flex justify-between items-center gap-[20px]'>
-            <button className='py-[5px] w-full h-[3em] justify-center text-[1.5rem] items-center border-[1px] border-dblue flex bg-dblue text-whitish rounded-[20px] font-gtaHeadingText2  hover:bg-transparent hover:text-white hover:border-white transition-all ease-in-out duration-300' type="submit">
+            <button className='py-[5px] w-full h-[3em] justify-center text-[1.5rem] items-center border-[1px] border-dblue flex bg-dblue text-whitish rounded-[20px] font-gtaHeadingText2 hover:bg-transparent hover:text-white hover:border-white transition-all ease-in-out duration-300' type="submit">
               Submit
             </button>
           </div>
@@ -238,6 +275,6 @@ const LostAndFound = () => {
       </div>
     );
   }
-}
 
-export default LostAndFound;
+}
+export default LostAndFound

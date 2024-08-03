@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';;
 
 const LostFoundAdmin = () => {
 
@@ -43,6 +44,8 @@ const LostItemData = () => {
     const [lostItemsData, setLostItemsData] = useState([]);
     const [confirmFound, setConfirmFound] = useState({ show: false, itemId: null });
 
+    const notify = () => toast("item Deleted Successfully");
+
     const fetchLostItems = async () => {
         try {
             const response = await axios.get('http://localhost:4000/api/v1/lostfound/itemslost');
@@ -55,6 +58,7 @@ const LostItemData = () => {
     const deleteItem = async (id) => {
         try {
             const response = await axios.delete(`http://localhost:4000/api/v1/lostfound/itemslost/${id}`);
+            notify()
             alert(response.data.message);
             setLostItemsData(lostItemsData.filter((item) => item._id !== id));
         } catch (error) {
@@ -64,6 +68,7 @@ const LostItemData = () => {
 
     const moveItemToFound = async (id) => {
         try {
+
             await axios.post(`http://localhost:4000/api/v1/lostfound/moveitemstofound/${id}`);
             setLostItemsData(lostItemsData.filter((item) => item._id !== id));
         } catch (error) {
@@ -178,10 +183,15 @@ const ConfirmFoundItem = ({ onClose, onConfirm }) => {
 const FoundItemData = () => {
     const [foundItemsData, setFoundItemsData] = useState([]);
 
+    const notify = () => {
+        console.log("Notification triggered");
+        toast("Item Deleted Successfully");
+    };
+
     const fetchFoundItems = async () => {
         try {
             const response = await axios.get('http://localhost:4000/api/v1/lostfound/itemsfound');
-            setFoundItemsData(response.data);
+            setFoundItemsData(response.data); 
         } catch (error) {
             alert(error.response ? error.response.data.message : error.message);
         }
@@ -190,6 +200,7 @@ const FoundItemData = () => {
     const deleteItem = async (id) => {
         try {
             const response = await axios.delete(`http://localhost:4000/api/v1/lostfound/itemsfound/${id}`);
+            notify()
             alert(response.data.message);
             setFoundItemsData((foundItemsData.filter((item) => item._id !== id)));
         } catch (error) {
@@ -197,12 +208,14 @@ const FoundItemData = () => {
         }
     };
 
+
     useEffect(() => {
         fetchFoundItems();
     }, []);
 
     return (
         <>
+            <ToastContainer />
             <div className='w-screen h-screen py-6 px-3'>
                 <table className='w-full h-full flex flex-col'>
                     <thead className='bg-dblue text-whitish'>

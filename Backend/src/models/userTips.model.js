@@ -15,6 +15,7 @@ const userTipsSchema = new Schema({
        required: true
     },
     tipAttachments : {
+      type:String,
     },
 }, 
 { 

@@ -48,6 +48,17 @@ function CareerAdmin() {
       })
       .catch((err) => console.log("Error in adding career:", err));
   };
+  const handleDeleteCriminal=(id)=>{
+    axios.delete(`http://localhost:4000/api/v1/career/careers/${id}`)
+    .then(()=>{
+      setCareer(career.filter((data)=>data._id!==id));
+    })
+    .catch((error)=>{
+      console.log("Error in delete career option",error)
+    })
+
+
+  }
 
   return (
     <div className="flex flex-col h-fit w-full justify-between gap-48">

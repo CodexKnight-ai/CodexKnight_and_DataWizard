@@ -135,31 +135,35 @@ const UserTipsSection = () => {
   const [tipCategory, settipCategory] = useState("");
   const [tipDescription , settipDescription] = useState("");
   const [tipDate , settipDate] = useState("");
-  const [tipAttachments, settipAttachments] = useState([]);
+  const [tipAttachments, settipAttachments] = useState(null);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
-  const handleFileChange = (e) => {
-    //converting files list in to regular arrays using spread operator
-    settipAttachments(Array.from(e.target.files));
-  };
 
   const handleSubmit = async (event) => {
     //Handling onSubmit form event here!
     event.preventDefault();
+    const formData = new FormData();
+    formData.append("tipCategory",tipCategory)
+    formData.append("tipDescription",tipDescription)
+    formData.append("tipDate",tipDate)
+    formData.append("tipAttachments",tipAttachments)
 
 
     try {
-      const response = await axios.post('http://localhost:4000/api/v1/userTips/tips', {
-        tipCategory,
-        tipDescription,
-        tipDate
-      });
+      const response = await axios.post('http://localhost:4000/api/v1/userTips/tips',
+        formData,
+        {
+          headers:{
+            "Content-Type":"multipart/form-data",
+          },
+        }
+      );
 
       settipCategory("")
       settipDescription("")
       settipDate("")
-      settipAttachments("")
+      settipAttachments(null)
       setSuccess(true);
     } catch (error) {
       setError(true);
@@ -189,7 +193,7 @@ const UserTipsSection = () => {
             </div>
             <div className='flex justify-between w-full items-center gap-[20px]'>
               <label className='text-dblue font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Attachments (If any)</span><span>:</span></label>
-              <input value={tipAttachments} onChange={(e)=>settipAttachments(e.target.value)}  type="file" className='border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.05] transition ease-in-out duration-300 focus:shadow-gray-500 focus:shadow-2xl' placeholder='' multiple/>
+              <input onChange={(e)=>settipAttachments(e.target.files)}  type="file" className='border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.05] transition ease-in-out duration-300 focus:shadow-gray-500 focus:shadow-2xl' placeholder='' multiple/>
             </div>
             
             <button type='submit' className='flex w-full bg-dblue text-white font-gtaHeadingText2 text-[1.5em] rounded-xl justify-center align-center px-6 py-3 border-[1px] border-white border-solid hover:opacity-70 transition-all duration-[0.1s] active:scale-[0.98]'>Submit</button>

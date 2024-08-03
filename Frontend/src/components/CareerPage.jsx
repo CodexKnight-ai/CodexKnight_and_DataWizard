@@ -43,9 +43,9 @@ function CareerPage() {
               {career.careerTitle}
             </p>
             <div className={`flex h-full w-full ${index%2!=0 ?"flex-row-reverse":"flex-row"}`}>
-              <div className="flex h-full w-[40%] items-center justify-center">
+              <div className="flex h-fit w-[40%] items-center justify-center">
                 <img
-                  className="h-full w-fit drop-shadow-[0_15px_15px_rgba(5,67,120,255)]"
+                  className="h-96 w-auto drop-shadow-[0_15px_15px_rgba(5,67,120,255)]"
                   src={career.careerImage}
                   alt={career.careerTitle}
                 />
@@ -57,13 +57,13 @@ function CareerPage() {
                   <li>Job: {career.careerJob}</li>
                   <li>Salary: {career.careerSalary}</li>
                 </ul>
+              </div>
+            </div>
                 <div className="w-full h-1/3 items-center flex justify-center">
                   <button className="bg-[#120658] px-10 py-4 rounded-full">
                     Apply
                   </button>
                 </div>
-              </div>
-            </div>
           </div>
         ))}
       </div>

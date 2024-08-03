@@ -1,5 +1,6 @@
-import { UserTip } from "../models/userTips.model.js";
+import {UserTip} from "../models/userTips.model.js"
 import asyncHandler from "../utils/asyncHandler.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 // Get all tips
 const getTips = asyncHandler(async (req, res) => {
@@ -9,9 +10,18 @@ const getTips = asyncHandler(async (req, res) => {
 
 // Add a new tip
 const addTips = asyncHandler(async (req, res) => {
-    const tip = new UserTip(req.body);
+    const {tipCategory,tipDescription,tipDate}=req.body
+    const tipLocalPath=req.file.path;
+    const tipAttachments=await uploadOnCloudinary(tipLocalPath);
     try {
-        const newTip = await tip.save();
+        const tip={
+            tipCategory,
+            tipDescription,
+            tipDate,
+            tipAttachments:tipAttachments.url,
+        }
+        const tipCreate = await UserTip.create(tip);
+        
         res.status(201).json(newTip); 
     } catch (error) {
         res.status(400).json({ message: error.message });

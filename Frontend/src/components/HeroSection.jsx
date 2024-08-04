@@ -1,21 +1,25 @@
 import { NavLink } from "react-router-dom";
-// Import the FontAwesomeIcon component
 import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import NavBar from './NavBar.jsx'
 import { faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { useState } from "react";
 
-
 const HeroSection = () => {
   return (
     <>
       <HeroPage />
-      <UserTipsSection />
     </>
   )
 }
+
 const HeroPage = () => {
+  const [isFormVisible, setIsFormVisible] = useState(false);
+
+  const toggleTipFormVisibility = () => {
+    setIsFormVisible(!isFormVisible);
+  };
+
   return (
     <>
       <section className="relative w-screen h-screen bg-black overflow-y-hidden">
@@ -33,7 +37,7 @@ const HeroPage = () => {
           <div className="absolute h-screen w-screen top-0 left-0 z-40">
             <NavBar />
 
-          //Social Media Section
+            {/* Social Media Section */}
             <div className=" absolute flex h-[55vh] top-[8vh] lg:text-[1.17vw]">
               <div className="w-[12vw] h-[100%] flex justify-between items-center ">
                 <ul className="flex flex-col gap-[50px] justify-end items-center space-y-4 p-4 text-whitish font-gtaDescriptionText h-[100%] xl:gap-[60px]">
@@ -57,7 +61,7 @@ const HeroPage = () => {
               </div>
             </div>
 
-          //Ready To Join Button
+            {/* Ready To Join Button */}
             <div className="absolute bottom-4 font-gtaDescriptionText mt-[55px] w-[60vh] h-[28vh] text-whitish flex  flex-col justify-between items-start ml-[20vh] lg:w-[45vh] lg:text-[0.9vw] lg:ml-[20vh] xl:w-[45vh] xl:ml-[23vh]">
               <p className="h-[75%]">
                 <span className="font-thin text-[1.8em] opacity-[65%]">
@@ -77,24 +81,28 @@ const HeroPage = () => {
               </p>
               <div className="w-[100%] h-[25%]">
                 <div className="text-blackish flex justify-between gap-[20px] w-[100%] h-[100%] lg:justify-normal ">
+                  <div
+                    className="bg-blackish text-whitish border-[1px] border-whitish rounded-full w-[40%]"
+                    onClick={toggleTipFormVisibility}>
+                    <button className="h-full w-full">Submit Tip</button>
+                  </div>
                   <NavLink
-                    className="bg-blackish text-whitish border-[1px] border-whitish rounded-full w-[25%]"
-                    to="/login">
-                    <button className="h-full w-full">Join Us</button>
+                    className="bg-blackish text-whitish border-[1px] border-whitish rounded-full w-[50%]"
+                    to="/lost-and-Found">
+                    <button className="h-full w-full">
+                      Lost-Found
+                    </button>
                   </NavLink>
-                  <button className="bg-blackish text-whitish border-[1px] border-whitish rounded-full w-[30%]">
-                    Community
-                  </button>
                   <NavLink
-                    className="bg-blackish text-whitish border-[1px] border-whitish rounded-full w-[45%] lg:hidden xl:flex"
+                    className="bg-blackish text-whitish border-[1px] border-whitish rounded-full w-[40%] lg:hidden xl:flex"
                     to="/newsSection">
-                    <button className="h-full w-full">News & Updates</button>
+                    <button className="h-full w-full">News</button>
                   </NavLink>
                 </div>
               </div>
             </div>
 
-          //About text
+            {/* About text */}
             <div className="absolute right-0 bottom-2 h-[28vh] mr-[4vw] lg:h-[32vh] ">
               <div className="flex h-[100%] mt-[15px]">
                 <span className="h-[100%] flex items-end font-gtaDescriptionText text-[11px] text-whitish lg:text-[0.8vw]">
@@ -117,21 +125,20 @@ const HeroPage = () => {
               </div>
             </div>
 
-          //animated logo
+            {/* animated logo */}
             <div className="absolute top-16 right-40 w-[10em] animate-[spin_4.5s_linear_infinite] lg:right-[8.4vw] lg:w-[7em] xl:w-[8em] xl:right-[9.3vw] xl:top-[9vh]">
               <img src="/SecurityLogo.png"></img>
             </div>
           </div>
-
         </div>
+
+        {isFormVisible && <UserTipsSection onClose={toggleTipFormVisibility} />}
       </section>
     </>
   );
 };
 
-
-const UserTipsSection = () => {
-  
+const UserTipsSection = ({ onClose }) => {
   const [tipCategory, settipCategory] = useState("");
   const [tipDescription , settipDescription] = useState("");
   const [tipDate , settipDate] = useState("");
@@ -141,7 +148,6 @@ const UserTipsSection = () => {
 
 
   const handleSubmit = async (event) => {
-    //Handling onSubmit form event here!
     event.preventDefault();
     const formData = new FormData();
     formData.append("tipCategory",tipCategory)
@@ -169,40 +175,37 @@ const UserTipsSection = () => {
       setError(true);
       console.error('Error adding Tip:', error.response?.data || error.message);
     }
-
-    
   };
 
   return (
     <>
-      <div className='flex h-screen w-screen justify-center'>
-        <div className='w-[40%] h-[80%] flex justify-center items-center backdrop-blur-md rounded-xl border-2 border-none shadow-2xl shadow-black'>
-          <form success ={success} error={error} onSubmit={handleSubmit} className='flex flex-col px-[10px] py-[10px] w-full h-full justify-between items-between font-gtaHeadingText2'>
-            <h1 className='font-gtaHeadingText1 px-[15px] py-[5px] border-[1px] border-white border-solid rounded-lg text-whitish bg-dblue text-[3em] w-full flex justify-center items-center '>Submit Tip</h1>
-            <div className='flex justify-between w-full items-center gap-[20px]'>
-              <label className='text-dblue font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Catagory</span><span>:</span></label>
-              <input value={tipCategory} onChange={(e)=>settipCategory(e.target.value)} className='border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.05] transition ease-in-out duration-300 focus:shadow-gray-500 focus:shadow-2xl' placeholder='catagory of tip' required />
+      <div className="fixed inset-0 flex justify-center items-center z-50 backdrop-blur-md backdrop-brightness-50">
+        <div className="w-[40%] h-[80%] flex justify-center items-center backdrop-blur-md rounded-xl border-2 border-none shadow-2xl shadow-black bg-white/90">
+          <form success={success.toString()} error={error.toString()} onSubmit={handleSubmit} className="relative flex flex-col px-[10px] py-[10px] w-full h-full justify-between items-between font-gtaHeadingText2">
+            <h1 className="font-gtaHeadingText1 px-[15px] py-[5px] border-[1px] border-white border-solid rounded-lg text-whitish bg-dblue text-[3em] w-full flex justify-center items-center">Submit Tip</h1>
+            <div className="flex justify-between w-full items-center gap-[20px]">
+              <label className="text-dblue font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]"><span>Category</span><span>:</span></label>
+              <input value={tipCategory} onChange={(e) => settipCategory(e.target.value)} className="border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.05] transition ease-in-out duration-300 focus:shadow-gray-500 focus:shadow-2xl" placeholder="category of tip" required />
             </div>
-            <div className='flex justify-between w-full items-center gap-[20px]'>
-              <label className='text-dblue font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Description</span><span>:</span></label>
-              <textarea value={tipDescription} onChange={(e)=>settipDescription(e.target.value)} className='border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset  focus:bg-white focus:transform focus:scale-[1.05] transition ease-in-out duration-300 focus:shadow-gray-500 focus:shadow-2xl' placeholder='Describe your suggestion' required />
+            <div className="flex justify-between w-full items-center gap-[20px]">
+              <label className="text-dblue font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]"><span>Description</span><span>:</span></label>
+              <textarea value={tipDescription} onChange={(e) => settipDescription(e.target.value)} className="border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.05] transition ease-in-out duration-300 focus:shadow-gray-500 focus:shadow-2xl" placeholder="Describe your suggestion" required />
             </div>
-            <div className='flex justify-between w-full items-center gap-[20px]'>
-              <label className='text-dblue font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Date</span><span>:</span></label>
-              <input value={tipDate} onChange={(e)=>settipDate(e.target.value)} type="date" className='border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.05] transition ease-in-out duration-300 focus:shadow-gray-500 focus:shadow-2xl' placeholder='Date' required />
+            <div className="flex justify-between w-full items-center gap-[20px]">
+              <label className="text-dblue font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]"><span>Date</span><span>:</span></label>
+              <input value={tipDate} onChange={(e) => settipDate(e.target.value)} type="date" className="border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.05] transition ease-in-out duration-300 focus:shadow-gray-500 focus:shadow-2xl" placeholder="Date" required />
             </div>
             <div className='flex justify-between w-full items-center gap-[20px]'>
               <label className='text-dblue font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]'><span>Attachments (If any)</span><span>:</span></label>
               <input onChange={(e)=>settipAttachments(e.target.files)}  type="file" className='border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset focus:bg-white focus:transform focus:scale-[1.05] transition ease-in-out duration-300 focus:shadow-gray-500 focus:shadow-2xl' placeholder='' multiple/>
             </div>
-            
-            <button type='submit' className='flex w-full bg-dblue text-white font-gtaHeadingText2 text-[1.5em] rounded-xl justify-center align-center px-6 py-3 border-[1px] border-white border-solid hover:opacity-70 transition-all duration-[0.1s] active:scale-[0.98]'>Submit</button>
+            <button type="submit" className="flex w-full bg-dblue text-white font-gtaHeadingText2 text-[1.5em] rounded-xl justify-center align-center px-6 py-3 border-[1px] border-white border-solid hover:opacity-70 transition-all duration-[0.1s] active:scale-[0.98]">Submit</button>
+            <button type="button" onClick={onClose} className="absolute top-[36px] right-[15px] bg-whitish text-dblue font-gtaDescriptionText py-2 px-4 rounded-full">X</button>
           </form>
         </div>
       </div>
     </>
-  )
+  );
+};
 
-
-}
 export default HeroSection;

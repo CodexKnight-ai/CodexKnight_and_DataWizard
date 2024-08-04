@@ -45,7 +45,7 @@ function CareerPage() {
             <div className={`flex h-full w-full ${index%2!=0 ?"flex-row-reverse":"flex-row"}`}>
               <div className="flex h-fit w-[40%] items-center justify-center">
                 <img
-                  className="h-96 w-auto drop-shadow-[0_15px_15px_rgba(5,67,120,255)]"
+                  className="h-96 w-auto hover:drop-shadow-[0_15px_15px_rgba(5,67,120,255)]"
                   src={career.careerImage}
                   alt={career.careerTitle}
                 />
@@ -60,7 +60,7 @@ function CareerPage() {
               </div>
             </div>
                 <div className="w-full h-1/3 items-center flex justify-center">
-                  <button className="bg-[#120658] px-10 py-4 rounded-full">
+                  <button className="bg-[#120658] px-10 py-4 rounded-full hover:drop-shadow-[0px_0px_15px_rgba(5,67,120,255)]">
                     Apply
                   </button>
                 </div>

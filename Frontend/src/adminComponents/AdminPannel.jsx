@@ -27,7 +27,7 @@ const Admin = () => {
                         <Link to="/admin-lostfound" className="text-whitish no-underline">Lost & Found</Link>
                     </button>
                     <button className="px-6 py-3 bg-dblue border-whitish border-solid border-2 rounded-sm text-whitish">
-                        <span onClick={handleClick} className="text-whitish no-underline">Send Emergency SMS</span>
+                        <span className="text-whitish no-underline">Send Emergency SMS</span>
                     </button>
                 </div>
             </section>

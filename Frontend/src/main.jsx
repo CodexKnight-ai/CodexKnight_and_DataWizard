@@ -43,6 +43,7 @@ const router = createBrowserRouter(
       <Route path="admin-career" element={<CareerAdmin/>}/>
       <Route path="admin-userTips" element={<UserTip/>}/>
       <Route path="admin-lostfound" element={<LostFoundAdmin/>}/>
+      <Route path="admin-emergencysms" element={<LostFoundAdmin/>}/>
     </>
   )
 );

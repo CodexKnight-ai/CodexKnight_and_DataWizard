@@ -7,6 +7,7 @@ import {
   deleteCriminal,
   updateCriminalAvatar,
 } from '../controllers/mostWanted.controller.js';
+import { verifyJWT } from '../middlewares/auth.middleware.js';
 
 const router = express.Router();
 

@@ -1,10 +1,10 @@
-import express from "express";
-import {sendSMS} from "../controllers/emergencysms.controller.js"
+// import express from "express";
+// import {sendSMS} from "../controllers/emergencysms.controller.js"
 
 
-const router = express.Router();
+// const router = express.Router();
 
-router.post("/sendEmergencySms",sendSMS);
+// router.post("/sendEmergencySms",sendSMS);
 
 
-export default router;
+// export default router;

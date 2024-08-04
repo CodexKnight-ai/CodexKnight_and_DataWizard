@@ -5,16 +5,6 @@ import { Link } from 'react-router-dom';
 const Admin = () => {
 
 
-    
-        const handleClick = async () => {
-            try {
-                const response = await axios.post('/api/sendEmergencySms');
-                alert(response.data.message);
-            } catch (error) {
-                alert('Failed to send SMS.');
-            }
-        };
-
 
     return (
         <>

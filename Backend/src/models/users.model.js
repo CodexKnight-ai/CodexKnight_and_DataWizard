@@ -31,9 +31,14 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Password is required"],
     },
-    refreshToken: {
-      type: String,
-    },
+    tokens:[
+      {
+        token:{
+          type:String,
+          required:true
+        }
+      }
+    ]
   },
   {
     timestamps: true,
@@ -54,30 +59,51 @@ userSchema.methods.validatePassword = async function (password) {
   return await bcrypt.compare(password, this.password); // Checking password with the original one
 };
 
-userSchema.methods.generateAccessToken = function () {
-  return jwt.sign(
-    {
-      _id: this._id.toString(),
-      email: this.email,
-      username: this.username,
-    },
-    process.env.ACCESS_TOKEN_SECRET,
-    {
-      expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
-    }
-  );
+userSchema.methods.generateAuthToken = async function () {
+  try {
+    const token = jwt.sign(
+      { _id: this._id },
+      process.env.REFRESH_TOKEN_SECRET,
+      { expiresIn: process.env.REFRESH_TOKEN_EXPIRY }
+    );
+
+    this.tokens = this.tokens.concat({ token:token });
+    await this.save();
+
+    return token;
+  } catch (error) {
+    console.error('Error generating auth token:', error);
+    throw new Error('Could not generate auth token');
+  }
 };
 
-userSchema.methods.generateRefreshToken = function () {
-  return jwt.sign(
-    {
-      _id: this._id,
-    },
-    process.env.REFRESH_TOKEN_SECRET,
-    {
-      expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
-    }
-  );
-};
+
+
+
+// userSchema.methods.generateAccessToken = function () {
+//   return jwt.sign(
+//     {
+//       _id: this._id.toString(),
+//       email: this.email,
+//       username: this.username,
+//     },
+//     process.env.ACCESS_TOKEN_SECRET,
+//     {
+//       expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
+//     }
+//   );
+// };
+
+// userSchema.methods.generateRefreshToken = function () {
+//   return jwt.sign(
+//     {
+//       _id: this._id,
+//     },
+//     process.env.REFRESH_TOKEN_SECRET,
+//     {
+//       expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
+//     }
+//   );
+// };
 
 export const User = mongoose.model("User", userSchema);

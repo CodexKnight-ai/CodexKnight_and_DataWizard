@@ -9,11 +9,11 @@ import {
     moveItemsToFound,
 } from "../controllers/lostFound.controller.js"
 import { upload } from "../middlewares/multer.middleware.js";
-
+import { verifyJWT } from "../middlewares/auth.middleware.js";
 const router = express.Router();
 
-router.get("/itemslost", getLostItems);
-router.get("/itemsfound", getFoundItems);
+router.get("/itemslost",verifyJWT, getLostItems);
+router.get("/itemsfound",verifyJWT, getFoundItems);
 router.post("/itemslost",upload.single('lostItemImage'), addLostItem);
 router.post("/itemsfound",upload.single('lostItemImage'), addFoundItem);
 router.delete("/itemslost/:id", deleteLostItem);

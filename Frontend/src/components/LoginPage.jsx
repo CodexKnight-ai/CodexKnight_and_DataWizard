@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Back = () => {
   const navigate = useNavigate();
@@ -19,7 +20,6 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -31,34 +31,28 @@ function LoginPage() {
 
     const userData = { email, password };
 
-    setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:4000/api/v1/users/login", {
-        method: "POST",
+      const response = await axios.post("http://localhost:4000/api/v1/users/login", userData, {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userData),
       });
 
-      const contentType = response.headers.get("Content-Type");
-      if (contentType && contentType.includes("application/json")) {
-        const data = await response.json();
-        if (response.ok) {
-          console.log("Login successful!");
-          navigate('/');
-          // Handle successful login (e.g., redirect or store tokens)
-        } else {
-          setError(data.message || "Login failed. Please try again.");
-        }
-      } else {
-        setError("Unexpected response from the server. Please try again later.");
-      }
+      // Handle successful login
+      console.log("Login successful!");
+      navigate('/');
+
     } catch (error) {
-      console.error("Error:", error);
-      setError("Something went wrong. Please try again later.");
-    } finally {
-      setIsLoading(false);
+      if (error.response) {
+        // Server responded with a status other than 2xx
+        setError(error.response.data.message || "Login failed. Please try again.");
+      } else if (error.request) {
+        // The request was made but no response was received
+        setError("No response from server. Please try again later.");
+      } else {
+        // Something happened in setting up the request
+        setError("Something went wrong. Please try again later.");
+      }
     }
   };
 
@@ -89,7 +83,7 @@ function LoginPage() {
                     value={email}
                     onChange={(e) => {
                       setEmail(e.target.value);
-                      setError(null);
+                      setError(""); // Reset error on change
                     }}
                     required
                     aria-label="Email"
@@ -108,7 +102,7 @@ function LoginPage() {
                     value={password}
                     onChange={(e) => {
                       setPassword(e.target.value);
-                      setError(null);
+                      setError(""); // Reset error on change
                     }}
                     required
                     aria-label="Password"
@@ -120,9 +114,8 @@ function LoginPage() {
               <button
                 type="submit"
                 className="bg-white flex justify-center items-center cursor-pointer border-b border-white text-blackish px-10 py-5 rounded-full focus:outline-none"
-                disabled={isLoading}
               >
-                {isLoading ? "Logging in..." : "Login"}
+                Login
               </button>
               <NavLink to="/signup">
                 <button className="bg-[#120658] text-whitish flex justify-center items-center cursor-pointer border-b border-black px-10 py-5 rounded-full focus:outline-none">

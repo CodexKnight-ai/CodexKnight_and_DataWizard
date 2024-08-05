@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faTimesCircle, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
+import {useNavigate} from "react-router-dom"
 
 const LostAndFound = () => {
   const [detailsVisible, setDetailsVisible] = useState(false);
@@ -9,6 +10,36 @@ const LostAndFound = () => {
   const [isItemLost, setIsItemLost] = useState(true); // State to toggle between forms
   const [isItemCardVisible, setisItemCardVisible] = useState(false);
   const [itemData, setItemData] = useState([]);
+
+  const navigate= useNavigate();
+
+  const callLostAndFoundPage = async () => {
+    // const navigate = useNavigate(); // Initialize navigate
+  
+    try {
+      const response = await axios.get("http://localhost:4000/api/v1/lostfound/itemslost", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        withCredentials: true, // Set credentials for cookies if needed
+      });
+  
+      // Access the data directly from the response object
+      const data = response.data;
+      console.log(data);
+  
+    } catch (err) {
+      console.error(err);
+      navigate("login"); // Use navigate for redirection
+      alert("Login Required");
+    }
+  }
+
+
+  useEffect(()=>{
+    callLostAndFoundPage();
+  },[])
 
   const toggleItemCardVisibility = () => {
     setisItemCardVisible(!isItemCardVisible);
@@ -19,7 +50,7 @@ const LostAndFound = () => {
       setSelectedItem(item);
       setisItemCardVisible(true);
     };
-
+     
     return (
       <div className="flex font-sans bg-whitish p-5 my-[10px] rounded-lg w-[40vw] shadow-2xl" key={item.id}>
         <div className="flex-none w-48 relative">
@@ -195,7 +226,7 @@ const LostAndFound = () => {
           </div>
           <div className="flex justify-between w-full items-center gap-[20px]">
             <label className="text-whitish font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]"><span>Photo</span><span>:</span></label>
-            <input onChange={(e) => setlostItemImage(e.target.value)} value={lostItemImage} type="file" accept="image/*" className="text-dblue border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset  focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl" placeholder="phone number" required />
+            <input onChange={(e) => setlostItemImage(e.target.value)}  type="file" accept="image/*" className="text-dblue border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset  focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl" placeholder="phone number" required />
           </div>
           <div className="flex justify-between w-full items-center gap-[20px]">
             <label className="text-whitish font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]"><span>Location</span><span>:</span></label>
@@ -283,7 +314,7 @@ const LostAndFound = () => {
           </div>
           <div className="flex justify-between w-full items-center gap-[20px]">
             <label className="text-whitish font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]"><span>Photo</span><span>:</span></label>
-            <input onChange={(e) => setfoundItemImage(e.target.value)} value={foundItemImage} type="file" accept="image/*" className="text-dblue border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset  focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl" placeholder="phone number" required />
+            <input onChange={(e) => setfoundItemImage(e.target.value)} type="file" accept="image/*" className="text-dblue border-none outline-none w-full rounded-[15px] p-4 bg-white shadow-inset  focus:bg-white focus:transform focus:scale-[1.015] transition ease-in-out duration-300 focus:shadow-gray-950 focus:shadow-2xl" placeholder="phone number" required />
           </div>
           <div className="flex justify-between w-full items-center gap-[20px]">
             <label className="text-whitish font-gtaHeadingText2 flex justify-between w-full items-center text-[1.5em]"><span>Location</span><span>:</span></label>

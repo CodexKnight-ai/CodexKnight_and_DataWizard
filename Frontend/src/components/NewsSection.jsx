@@ -47,7 +47,7 @@ const OpenNews = ({ onClose, id }) => {
           <div className="w-full h-[25%] font-gtaDescriptionText text-xl mt-4">
             {newsData.newsDescription}
           </div>
-          <div className="w-full h-full bg-yellow-900 border-gray-500 border-2">
+          <div className="w-full h-full border-gray-500 border-2">
             {newsData.newsComments?.map((comment, index) => (
               <p key={index}>{comment.text}</p>
             ))}

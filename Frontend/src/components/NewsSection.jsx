@@ -7,7 +7,7 @@ const OpenNews = ({ onClose, id }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/api/v1/news/create-news/${id}`)
+      .get(`http://localhost:4000/api/v1/news/news/${id}`)
       .then((response) => {
         console.log("News data by id fetched");
         setNewsData(response.data);
@@ -37,15 +37,14 @@ const OpenNews = ({ onClose, id }) => {
   return (
     <div className="fixed inset-0 bg-opacity-50 bg-black flex justify-center items-center z-50">
       <div className="relative bg-[#121212] w-[90%] h-[90%] text-white rounded-lg p-4 flex gap-3">
-        <div className="w-[40%] h-full">
-          <img className="w-full h-auto" src={newsData.newsImage} alt="News" />
-          <div className="bg-green-800 w-[15%] h-[25%] relative left-[85%] top-[75%]"></div>
+        <div className="w-[45%] h-full">
+          <img className="w-full h-full overflow-hidden " src={newsData.newsImage} alt="News" />
         </div>
         <div className="w-[55%] h-full flex flex-col gap-1">
-          <div className="w-full h-[10%] bg-blue-800 border-gray-500 border-2">
+          <div className="w-full h-[10%] font-gtaDescriptionText text-2xl font-bold">
             {newsData.newsHeading}
           </div>
-          <div className="w-full h-[25%] bg-blue-800 border-gray-500 border-2">
+          <div className="w-full h-[25%] font-gtaDescriptionText text-xl mt-4">
             {newsData.newsDescription}
           </div>
           <div className="w-full h-full bg-yellow-900 border-gray-500 border-2">
@@ -62,12 +61,12 @@ const OpenNews = ({ onClose, id }) => {
               className="w-full p-2 rounded"
               placeholder="Add a comment..."
             />
-            <button
+            {/* <button
               type="submit"
               className="mt-2 bg-blue-500 p-2 rounded text-white"
             >
               Add Comment
-            </button>
+            </button> */}
           </form>
         </div>
         <button
@@ -119,7 +118,7 @@ const NewsSection = () => {
             </p>
           </div>
           <div className="flex gap-[1.4em] bg-white py-[0.em] absolute bottom-[3em] 0 w-screen -rotate-[3deg]">
-            <AimationCards />
+            <AimationCards data={data} />
           </div>
         </div>
         <div className="w-screen flex gap-[15px] p-[15px]">
@@ -155,7 +154,7 @@ const NewsSection = () => {
             id="newsSectionSideBar"
             className="w-[35%] h-[83rem] p-[10px] rounded-[1.4em] flex flex-col gap-[15px] overflow-x-scroll"
           >
-            <NewsSideBar onClick={handleOpenNews} />
+            <NewsSideBar news={data.slice(6)} onClick={handleOpenNews} />
           </div>
         </div>
       </section>
@@ -163,7 +162,7 @@ const NewsSection = () => {
   );
 };
 
-const NewsGridCard1 = ({ onClick,news }) => {
+const NewsGridCard1 = ({ onClick, news }) => {
   return (
     <article
       onClick={onClick}
@@ -174,7 +173,7 @@ const NewsGridCard1 = ({ onClick,news }) => {
         className="absolute inset-0 h-full w-full object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
-      <h3 className="z-10 mt-3 text-3xl font-bold text-white">
+      <h3 className="z-10 mt-3 text-2xl font-bold text-white">
         {news.newsHeading}
       </h3>
       {/* <div className="z-10 mt-2 gap-y-1 overflow-x-hidden text-sm leading-6 text-gray-300">
@@ -184,7 +183,7 @@ const NewsGridCard1 = ({ onClick,news }) => {
   );
 };
 
-const NewsGridCard2 = ({ onClick,news}) => {
+const NewsGridCard2 = ({ onClick, news }) => {
   return (
     <article
       onClick={onClick}
@@ -195,8 +194,8 @@ const NewsGridCard2 = ({ onClick,news}) => {
         className="absolute inset-0 h-full w-full object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
-      <h3 className="z-10 mt-3 text-3xl font-bold text-white">
-      {news.newsHeading}
+      <h3 className="z-10 mt-3 text-2xl font-bold text-white">
+        {news.newsHeading}
       </h3>
       {/* <div className="z-10 mt-2 gap-y-1 overflow-x-hidden text-sm leading-6 text-gray-300">
       {news.newsDescription}
@@ -205,8 +204,7 @@ const NewsGridCard2 = ({ onClick,news}) => {
   );
 };
 
-const NewsGridCardCarousel = ({ onClick,data}) => {
- 
+const NewsGridCardCarousel = ({ onClick, data }) => {
   return (
     <div className="w-full h-full bg-dblue rounded-[1.2em]">
       <article
@@ -222,14 +220,14 @@ const NewsGridCardCarousel = ({ onClick,data}) => {
           {data.newsHeading}
         </h2>
         <div className="z-10 mt-5 ml-[3px] gap-y-1 overflow-x-hidden text-md leading-6 text-gray-300">
-         {data.newsDescription}
+          {data.newsDescription}
         </div>
       </article>
     </div>
   );
 };
 
-const NewsSideBarCard = ({ onClick,news }) => {
+const NewsSideBarCard = ({ onClick, news }) => {
   return (
     <div
       className="w-full h-[10em] bg-white shadow-xl rounded-[1.2em] p-[10px] cursor-pointer"
@@ -238,16 +236,16 @@ const NewsSideBarCard = ({ onClick,news }) => {
       <article className="font-gtaDescriptionText  w-full h-full relative isolate flex justify-between  rounded-[1.2em]  ">
         <div className="w-[20%] overflow-hidden">
           <img
-            src="./newsBackground.jpg"
+            src={news.newsImage}
             className="rounded-[0.8em] absolute inset-0 h-full w-[8.5rem] object-cover overflow-hidden"
           />
         </div>
-        <div className="w-[70%] h-full">
-          <h2 className="mt-3 text-2xl font-bold text-blackish">
-            Wo to mar gaya3
+        <div className="w-[70%] h-full overflow-hidden">
+          <h2 className="mt-3 text-xl font-bold text-blackish">
+            {news.newsHeading}
           </h2>
-          <div className="mt-5 ml-[3px] gap-y-1 overflow-x-hidden text-md leading-6 text-blackish">
-            Wo mar gaya kyoki kya kare use kisi ne mar dala ab isme ham kya kare
+          <div className="mt-5 ml-[3px] gap-y-1 overflow-hidden text-md leading-6 text-blackish">
+            {news.newsDescription}
           </div>
         </div>
       </article>
@@ -255,93 +253,31 @@ const NewsSideBarCard = ({ onClick,news }) => {
   );
 };
 
-const NewsSideBar = ({ onClick,news }) => {
+const NewsSideBar = ({ onClick, news }) => {
   return (
     <>
-      <NewsSideBarCard onClick={onClick} />
-      <NewsSideBarCard onClick={onClick} />
-      <NewsSideBarCard onClick={onClick} />
-      <NewsSideBarCard onClick={onClick} />
-      <NewsSideBarCard onClick={onClick} />
-      <NewsSideBarCard onClick={onClick} />
-      <NewsSideBarCard onClick={onClick} />
-      <NewsSideBarCard onClick={onClick} />
-      <NewsSideBarCard onClick={onClick} />
-      <NewsSideBarCard onClick={onClick} />
-      <NewsSideBarCard onClick={onClick} />
-      <NewsSideBarCard onClick={onClick} />
-      <NewsSideBarCard onClick={onClick} />
-      <NewsSideBarCard onClick={onClick} />
+      {news.map((data) => (
+        <NewsSideBarCard
+          key={data._id}
+          news={data}
+          onClick={() => onClick(data._id)}
+        />
+      ))}
     </>
   );
 };
-const AimationCards = () => {
+
+const AimationCards = ({data}) => {
   return (
     <>
       <section class="animationSection">
         <div class="scroll">
           {/* <!-- First set of images --> */}
-          <div>
-            <img src="/crim1.jpeg"></img>
-          </div>
-          <div>
-            <img src="/crim1.jpeg"></img>
-          </div>
-          <div>
-            <img src="/crim3.jpeg"></img>
-          </div>
-          <div>
-            <img src="/crim4.jpeg"></img>
-          </div>
-          <div>
-            <img src="/crim3.jpeg"></img>
-          </div>
-          <div>
-            <img src="/LandFDesk.jpeg"></img>
-          </div>
-          <div>
-            <img src="/crim1.jpeg"></img>
-          </div>
-          <div>
-            <img src="/crim4.jpeg"></img>
-          </div>
-          <div>
-            <img src="/crim3.jpeg"></img>
-          </div>
-          <div>
-            <img src="/crim3.jpeg"></img>
-          </div>
-          {/* <!-- Duplicate the images for seamless looping --> */}
-          <div>
-            <img src="/crim1.jpeg"></img>
-          </div>
-          <div>
-            <img src="/crim1.jpeg"></img>
-          </div>
-          <div>
-            <img src="/crim3.jpeg"></img>
-          </div>
-          <div>
-            <img src="/crim4.jpeg"></img>
-          </div>
-          <div>
-            <img src="/crim3.jpeg"></img>
-          </div>
-          <div>
-            <img src="/LandFDesk.jpeg"></img>
-          </div>
-          <div>
-            <img src="/crim1.jpeg"></img>
-          </div>
-          <div>
-            <img src="/crim4.jpeg"></img>
-          </div>
-          <div>
-            <img src="/crim3.jpeg"></img>
-          </div>
-          <div>
-            <img src="/crim2.jpeg"></img>
-          </div>
+          {data.map((news) => (
+            <div>
+              <img className="h-full w-full" src={news.newsImage}></img>
+            </div>
+          ))}
         </div>
       </section>
     </>

@@ -3,6 +3,7 @@ import asyncHandler from "../utils/asyncHandler.js";
 
 // Get all Lost Items
 const getLostItems = asyncHandler(async (req, res) => {
+    console.log("Logged in user:",req.user)
     const items = await LostItem.find();
     res.json(items);
 });

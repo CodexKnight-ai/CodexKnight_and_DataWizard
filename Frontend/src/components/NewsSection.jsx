@@ -83,21 +83,37 @@ const OpenNews = ({ onClose, id }) => {
 
 const NewsSection = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedNewsId, setSelectedNewsId] = useState(null);
+  const [data, setData] = useState([]);
 
-  const handleOpenNews = () => {
+  const handleOpenNews = (id) => {
+    setSelectedNewsId(id);
     setIsOpen(true);
   };
 
   const handleCloseNews = () => {
     setIsOpen(false);
+    setSelectedNewsId(null);
   };
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/api/v1/news/news")
+      .then((response) => {
+        console.log("New data fetched successfully");
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error getting news data!", error);
+      });
+  }, []);
 
   return (
     <>
-      {isOpen && <OpenNews onClose={handleCloseNews} id={id} />}
+      {isOpen && <OpenNews onClose={handleCloseNews} id={selectedNewsId} />}
       <section className="w-screen h-screen overflow-x-hidden">
         <div className="relative bg-blackish w-screen h-full overflow-y-hidden">
-          <div className='mt-[8vh]  bg-[url("/newsSection.png")] w-full h-full bg-contain bg-center bg-no-repeat'>
+          <div className='mt-[8vh] bg-[url("/newsSection.png")] w-full h-full bg-contain bg-center bg-no-repeat'>
             <p className="text-whitish font-gtaHeadingText1 absolute top-[8vh] left-[5vh] text-[3rem]">
               Lspd News Barrier
             </p>
@@ -107,23 +123,37 @@ const NewsSection = () => {
           </div>
         </div>
         <div className="w-screen flex gap-[15px] p-[15px]">
-          <div className="w-[65%]  flex flex-col gap-[15px]">
+          <div className="w-[65%] flex flex-col gap-[15px]">
             <div className="w-[100%] h-[40rem]">
-              <NewsGridCardCarousel onClick={handleOpenNews} />
+              {data.length > 0 && (
+                <NewsGridCardCarousel
+                  data={data[0]}
+                  onClick={() => handleOpenNews(data[0]._id)}
+                />
+              )}
             </div>
-            <div className=" w-[100%] flex gap-[15px] h-[21rem] ">
-              <NewsGridCard1 onClick={handleOpenNews} />
-              <NewsGridCard1 onClick={handleOpenNews} />
-              <NewsGridCard1 onClick={handleOpenNews} />
+            <div className="w-[100%] flex gap-[15px] h-[21rem]">
+              {data.slice(1, 4).map((news) => (
+                <NewsGridCard1
+                  key={news._id}
+                  news={news}
+                  onClick={() => handleOpenNews(news._id)}
+                />
+              ))}
             </div>
             <div className="w-full flex justify-center gap-[15px] h-[20em]">
-              <NewsGridCard2 onClick={handleOpenNews} />
-              <NewsGridCard2 onClick={handleOpenNews} />
+              {data.slice(4, 6).map((news) => (
+                <NewsGridCard2
+                  key={news._id}
+                  news={news}
+                  onClick={() => handleOpenNews(news._id)}
+                />
+              ))}
             </div>
           </div>
           <div
             id="newsSectionSideBar"
-            className=" w-[35%] h-[83rem] p-[10px] rounded-[1.4em] flex flex-col gap-[15px] overflow-x-scroll"
+            className="w-[35%] h-[83rem] p-[10px] rounded-[1.4em] flex flex-col gap-[15px] overflow-x-scroll"
           >
             <NewsSideBar onClick={handleOpenNews} />
           </div>
@@ -133,50 +163,50 @@ const NewsSection = () => {
   );
 };
 
-const NewsGridCard1 = ({ onClick }) => {
+const NewsGridCard1 = ({ onClick,news }) => {
   return (
     <article
       onClick={onClick}
       className="font-gtaDescriptionText w-[24em] h-[21em] relative isolate flex flex-col justify-end overflow-hidden rounded-2xl px-3 pb-6 pt-40 max-w-sm mx-auto cursor-pointer"
     >
       <img
-        src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a"
-        alt="University of Southern California"
+        src={news.newsImage}
         className="absolute inset-0 h-full w-full object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
       <h3 className="z-10 mt-3 text-3xl font-bold text-white">
-        Wo to mar gaya
+        {news.newsHeading}
       </h3>
-      <div className="z-10 mt-2 gap-y-1 overflow-x-hidden text-sm leading-6 text-gray-300">
-        Wo mar gaya kyoki kya kare use kisi ne mar dala ab isme ham kya kare
-      </div>
+      {/* <div className="z-10 mt-2 gap-y-1 overflow-x-hidden text-sm leading-6 text-gray-300">
+        {news.newsDescription}
+      </div> */}
     </article>
   );
 };
 
-const NewsGridCard2 = ({ onClick }) => {
+const NewsGridCard2 = ({ onClick,news}) => {
   return (
     <article
       onClick={onClick}
       className="font-gtaDescriptionText w-[50%] h-[21em] relative isolate flex flex-col justify-end overflow-hidden rounded-2xl px-3 pb-6 pt-40 cursor-pointer"
     >
       <img
-        src="/nightCity.jpg"
+        src={news.newsImage}
         className="absolute inset-0 h-full w-full object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
       <h3 className="z-10 mt-3 text-3xl font-bold text-white">
-        Wo to mar gaya
+      {news.newsHeading}
       </h3>
-      <div className="z-10 mt-2 gap-y-1 overflow-x-hidden text-sm leading-6 text-gray-300">
-        Wo mar gaya kyoki kya kare use kisi ne mar dala ab isme ham kya kare
-      </div>
+      {/* <div className="z-10 mt-2 gap-y-1 overflow-x-hidden text-sm leading-6 text-gray-300">
+      {news.newsDescription}
+      </div> */}
     </article>
   );
 };
 
-const NewsGridCardCarousel = ({ onClick }) => {
+const NewsGridCardCarousel = ({ onClick,data}) => {
+ 
   return (
     <div className="w-full h-full bg-dblue rounded-[1.2em]">
       <article
@@ -184,22 +214,22 @@ const NewsGridCardCarousel = ({ onClick }) => {
         className="font-gtaDescriptionText overflow-auto w-full h-full relative isolate flex flex-col justify-end  rounded-[1.2em] px-5 pb-10 pt-40 cursor-pointer"
       >
         <img
-          src="./newsBackground.jpg"
+          src={data.newsImage}
           className="absolute inset-0 h-full w-full object-cover overflow-hidden"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
         <h2 className="z-10 mt-3 text-5xl font-bold text-white">
-          Wo to mar gaya
+          {data.newsHeading}
         </h2>
         <div className="z-10 mt-5 ml-[3px] gap-y-1 overflow-x-hidden text-md leading-6 text-gray-300">
-          Wo mar gaya kyoki kya kare use kisi ne mar dala ab isme ham kya kare
+         {data.newsDescription}
         </div>
       </article>
     </div>
   );
 };
 
-const NewsSideBarCard = ({ onClick }) => {
+const NewsSideBarCard = ({ onClick,news }) => {
   return (
     <div
       className="w-full h-[10em] bg-white shadow-xl rounded-[1.2em] p-[10px] cursor-pointer"
@@ -214,7 +244,7 @@ const NewsSideBarCard = ({ onClick }) => {
         </div>
         <div className="w-[70%] h-full">
           <h2 className="mt-3 text-2xl font-bold text-blackish">
-            Wo to mar gaya
+            Wo to mar gaya3
           </h2>
           <div className="mt-5 ml-[3px] gap-y-1 overflow-x-hidden text-md leading-6 text-blackish">
             Wo mar gaya kyoki kya kare use kisi ne mar dala ab isme ham kya kare
@@ -225,7 +255,7 @@ const NewsSideBarCard = ({ onClick }) => {
   );
 };
 
-const NewsSideBar = ({ onClick }) => {
+const NewsSideBar = ({ onClick,news }) => {
   return (
     <>
       <NewsSideBarCard onClick={onClick} />

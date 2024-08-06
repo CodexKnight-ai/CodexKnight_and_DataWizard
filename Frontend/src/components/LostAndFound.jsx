@@ -12,34 +12,31 @@ const LostAndFound = () => {
   const [itemData, setItemData] = useState([]);
 
   const navigate= useNavigate();
-
-  const callLostAndFoundPage = async () => {
-    // const navigate = useNavigate(); // Initialize navigate
+    const callLostAndFoundPage = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/api/v1/lostfound/itemslost", {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          withCredentials: true, // Set credentials for cookies if needed
+        });
   
-    try {
-      const response = await axios.get("http://localhost:4000/api/v1/lostfound/itemslost", {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        withCredentials: true, // Set credentials for cookies if needed
-      });
+        // Access the data directly from the response object
+        const data = response.data;
+        console.log(data);
   
-      // Access the data directly from the response object
-      const data = response.data;
-      console.log(data);
-  
-    } catch (err) {
-      console.error(err);
-      navigate("login"); // Use navigate for redirection
-      alert("Login Required");
+      } catch (err) {
+        console.error(err);
+        // navigate("/login"); 
+      
+      }
     }
-  }
-
-
-  useEffect(()=>{
-    callLostAndFoundPage();
-  },[])
+  
+    useEffect(() => {
+      callLostAndFoundPage();
+    }, []);
+  
 
   const toggleItemCardVisibility = () => {
     setisItemCardVisible(!isItemCardVisible);

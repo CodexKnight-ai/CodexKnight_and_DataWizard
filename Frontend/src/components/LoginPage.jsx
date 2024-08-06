@@ -15,6 +15,7 @@ const Back = () => {
   );
 };
 
+
 function LoginPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -37,20 +38,20 @@ function LoginPage() {
           "Content-Type": "application/json",
         },
       });
-
-      // Handle successful login
-      console.log("Login successful!");
-      navigate('/');
+      const result = response.data;
+      const { user, jwtToken } = result;
+      localStorage.setItem('token', jwtToken);
+      localStorage.setItem('loggedInUser', JSON.stringify(user));
+      setTimeout(() => {
+        navigate('/');
+      }, 1000);
 
     } catch (error) {
       if (error.response) {
-        // Server responded with a status other than 2xx
         setError(error.response.data.message || "Login failed. Please try again.");
       } else if (error.request) {
-        // The request was made but no response was received
         setError("No response from server. Please try again later.");
       } else {
-        // Something happened in setting up the request
         setError("Something went wrong. Please try again later.");
       }
     }

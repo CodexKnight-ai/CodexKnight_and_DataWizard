@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { upload } from "../middlewares/multer.middleware.js";
+import {verifyJWT} from "../middlewares/auth.middleware.js"
 import {
   addNews,
   getNews,
@@ -14,7 +15,7 @@ import {
 const router = Router();
 
 router.post("/news", upload.single("newsImage"), addNews);
-router.get("/news", getNews);
+router.get("/news",getNews);
 router.get("/news/:id", getNewsById);
 router.post("/news/:id/like", likeNews);
 router.post("/news/:id/unlike", unlikeNews);

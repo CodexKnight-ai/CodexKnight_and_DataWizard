@@ -2,6 +2,7 @@ import asyncHandler from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiErrors.js";
 import { User } from "../models/users.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import jwt from 'jsonwebtoken'; // Ensure you have this import
 
 const SignupUser = asyncHandler(async (req, res) => {
   const { username, email, phoneNumber, password } = req.body;
@@ -55,34 +56,54 @@ const SignupUser = asyncHandler(async (req, res) => {
 });
 
 const loginUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-  if (!email || !password) {
-    throw new ApiError(400, "Email and password are required");
+    if (!email || !password) {
+      throw new ApiError(400, "Email and password are required");
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      throw new ApiError(401, "Invalid credentials");
+    }
+
+    const isPasswordValid = await user.validatePassword(password);
+
+    if (!isPasswordValid) {
+      throw new ApiError(401, "Invalid credentials");
+    }
+
+    const jwtToken = jwt.sign(
+      {
+        email: user.email,
+        _id: user._id,
+      },
+      process.env.JWT_TOKEN_SECRET,
+      {
+        expiresIn: process.env.JWT_TOKEN_EXPIRY,
+      }
+    );
+
+    const options = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // Ensure secure cookies in production
+    };
+
+    return res
+      .status(200)
+      .cookie("jwtToken", jwtToken, options) 
+      .json({
+        jwtToken,
+        user
+      }
+        )
+  } catch (error) {
+    return res.status(error.statusCode || 500).json({
+      message: error.message || "Internal Server Error",
+    });
   }
-
-  const user = await User.findOne({ email });
-  
-  if (!user) {
-    throw new ApiError(401, "Invalid credentials");
-  }
-
-  const isPasswordValid = await user.validatePassword(password);
-
-  if (!isPasswordValid) {
-    throw new ApiError(401, "Invalid credentials");
-  }
-
-  const token = await user.generateAuthToken();
-  
-  res.cookie("jwtoken", token, {
-    expires: new Date(Date.now() + 25892000000),
-    httpOnly: true,
-  });
-
-  return res
-    .status(200)
-    .json(new ApiResponse(200, {}, "Login successful"));
 });
 
 const logoutUser = asyncHandler(async (req, res) => {
@@ -100,12 +121,12 @@ const logoutUser = asyncHandler(async (req, res) => {
 
   const options = {
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV === 'production', // Ensure secure cookies in production
   };
 
   return res
     .status(200)
-    .clearCookie("jwtoken", options)
+    .clearCookie("jwtToken", options) // Consistent cookie name
     .json(new ApiResponse(200, {}, "User logged out"));
 });
 
@@ -122,7 +143,9 @@ const getUser = asyncHandler(async (req, res) => {
     throw new ApiError(404, "User not found");
   }
 
-  res.json(new ApiResponse(200, { user: userById }, "User fetched successfully"));
+  res.json(
+    new ApiResponse(200, { user: userById }, "User fetched successfully")
+  );
 });
 
 export { SignupUser, loginUser, logoutUser, getUser };

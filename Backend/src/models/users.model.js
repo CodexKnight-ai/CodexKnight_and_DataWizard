@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+// import jwt from "jsonwebtoken";
 
 const userSchema = new Schema(
   {
@@ -31,17 +31,9 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Password is required"],
     },
-    tokens:[
-      {
-        token:{
-          type:String,
-          required:true
-        }
-      }
-    ]
   },
   {
-    timestamps: true,
+    timestamps: true, 
   }
 );
 
@@ -57,24 +49,6 @@ userSchema.pre("save", async function (next) {
 
 userSchema.methods.validatePassword = async function (password) {
   return await bcrypt.compare(password, this.password); // Checking password with the original one
-};
-
-userSchema.methods.generateAuthToken = async function () {
-  try {
-    const token = jwt.sign(
-      { _id: this._id },
-      process.env.REFRESH_TOKEN_SECRET,
-      { expiresIn: process.env.REFRESH_TOKEN_EXPIRY }
-    );
-
-    this.tokens = this.tokens.concat({ token:token });
-    await this.save();
-
-    return token;
-  } catch (error) {
-    console.error('Error generating auth token:', error);
-    throw new Error('Could not generate auth token');
-  }
 };
 
 

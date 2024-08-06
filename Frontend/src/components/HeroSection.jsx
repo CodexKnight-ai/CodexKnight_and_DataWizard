@@ -40,7 +40,7 @@ const HeroPage = () => {
             {/* Social Media Section */}
             <div className=" absolute flex h-[55vh] top-[8vh] lg:text-[1.17vw]">
               <div className="w-[12vw] h-[100%] flex justify-between items-center ">
-                <ul className="flex flex-col gap-[50px] justify-end items-center space-y-4 p-4 text-whitish font-gtaDescriptionText h-[100%] xl:gap-[60px]">
+                <ul className="flex flex-col gap-[50px] justify-end items-center space-y-4 p-4 text-whitish font-gtaDescriptionText h-[100%] xl:gap-[90px]">
                   <li className="rotate-[270deg] text-[1.2em] ">Social Media</li>
                   <div className="flex flex-col gap-[8px] xl:gap-[10px]">
                     <li className="bg-whitish rounded-full h-[2.7em] w-[2.7em] flex items-center justify-center">
@@ -55,7 +55,7 @@ const HeroPage = () => {
                   </div>
                 </ul>
               </div>
-              <div className="flex flex-col gap-[20px] h-[90%] w-[35vh] ml-[25px] mt-[25px]">
+              <div className="flex flex-col gap-[20px] h-[90%] w-[35vh] ml-[25px] mt-[40px]">
                 <div className="h-[60%] backdrop-blur-sm bg-white/20 rounded-3xl mt-[50px]"></div>
                 <div className="h-[40%] backdrop-blur-sm bg-white/20 rounded-3xl"></div>
               </div>
@@ -119,14 +119,14 @@ const HeroPage = () => {
                 </span>
                 <span className=" p-[0px] ml-[20px]">
                   <div className="relative flex justify-center items-center">
-                    <img src="/logo3.png" alt="" className="h-[275px] top-5 lg:h-[170px] lg:top-1 xl:h-[200px] xl:" />
+                    <img src="/logo3.png" alt="" className="h-[275px] top-5 lg:h-[200px] lg:top-1 xl:h-[300px]" />
                   </div>
                 </span>
               </div>
             </div>
 
             {/* animated logo */}
-            <div className="absolute top-16 right-40 w-[10em] animate-[spin_4.5s_linear_infinite] lg:right-[8.4vw] lg:w-[7em] xl:w-[8em] xl:right-[9.3vw] xl:top-[9vh]">
+            <div className="absolute top-16 right-20 w-[10em] animate-[spin_4.5s_linear_infinite] lg:right-[8.4vw] lg:w-[7em] xl:w-[8em] xl:right-[9.3vw] xl:top-[9vh]">
               <img src="/SecurityLogo.png"></img>
             </div>
           </div>
